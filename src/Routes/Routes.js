@@ -1,19 +1,27 @@
-import { createSwitchNavigator } from "react-navigation";
-import AppStack from "./App";
-import AuthStack from "./Auth";
-import AuthLoading from "@/Views/Auth/AuthLoading";
+import {createSwitchNavigator} from "react-navigation"
+import AuthLoading from "@/Views/Auth/AuthLoading"
+import AppStack from "./App"
+import AuthStack from "./Auth"
 
-export default createSwitchNavigator(
-  {
-    AuthLoading: AuthLoading,
-    App: AppStack,
-    Auth: AuthStack,
-    navigationOptions: ({ navigation }) => ({
-      header: null
-    })
-  },
-  {
-    initialRouteName: "AuthLoading",
-    backBehaviour: "none"
-  }
-);
+const RouteConfigs = {
+	AuthLoading: {
+		screen: AuthLoading,
+	},
+	App: {
+		screen: AppStack
+	},
+	Auth: {
+		screen: AuthStack
+	},
+}
+
+const SwitchNavigatorConfig = {
+	initialRouteName: "AuthLoading",
+	backBehaviour: "none",
+	headerMode: "none",
+	navigationOptions: {
+		headerVisible: false,
+	}
+}
+
+export default createSwitchNavigator(RouteConfigs, SwitchNavigatorConfig)

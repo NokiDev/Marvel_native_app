@@ -1,22 +1,25 @@
-import { createStackNavigator } from "react-navigation";
+import {createStackNavigator} from "react-navigation"
 
-import HomeView from "@/Views/HomeView";
+import HomeView from "@/Views/HomeView"
 
 const RootStack = createStackNavigator({
-  Home: {
-    screen: HomeView
-  }
-});
+	Home: {
+		screen: HomeView
+	}
+})
 
 export default createStackNavigator(
-  {
-    Home: RootStack,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Home',
-      header: null
-    })
-  },
-  {
-    initialRouteName: "Home"
-  }
-);
+	{
+		Home: RootStack,
+		navigationOptions: () => ({
+			title: "Home",
+		})
+	},
+	{
+		initialRouteName: "Home",
+		headerMode: "none",
+		navigationOptions: {
+			headerVisible: false,
+		}
+	}
+)
