@@ -1,6 +1,6 @@
 
 import React from "react";
-import {AsyncStorage, Text } from 'react-native'
+import {AsyncStorage} from 'react-native'
 import { connect } from 'react-redux'
 import authActions from '@/Redux/actions/auth.actions'
 import { Container, Content, Header } from "native-base";
@@ -16,7 +16,6 @@ class Login extends React.Component {
       this.props.navigation.navigate("Home")
       MarvelApi.set_private_api_key(private_api_key)
       MarvelApi.set_public_api_key(public_api_key)
-      return
     } catch (error) {
       // Error saving data
     }
@@ -27,7 +26,6 @@ class Login extends React.Component {
       <Container>
         <Content>
           <Header/>
-          <Text>{JSON.stringify(this.props)}</Text>
           <Container style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: "column"}}>
             <ApiKeyFormPart api_name="MARVEL API" onSubmit={this.props.OnConnect}/>
           </Container>
