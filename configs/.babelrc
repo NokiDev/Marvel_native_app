@@ -2,15 +2,15 @@
   "presets": ["module:metro-react-native-babel-preset"],
   "plugins": [
     ["babel-root-import", {
-      "rootPathPrefix": "@",
+      "rootPathPrefix": "~",
       "rootPathSuffix": "src/"
     }]
   ],
-  "env": { 
+  "env": {
     "production": {
       "plugins": [
         ["babel-root-import", {
-          "rootPathPrefix": "@"
+          "rootPathPrefix": "~"
         }]
       ]
     }

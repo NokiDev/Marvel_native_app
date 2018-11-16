@@ -1,5 +1,5 @@
 import {createSwitchNavigator} from "react-navigation"
-import AuthLoading from "@/Views/Auth/AuthLoading"
+import AuthLoading from "~/Views/Auth/AuthLoading"
 import AppStack from "./App"
 import AuthStack from "./Auth"
 

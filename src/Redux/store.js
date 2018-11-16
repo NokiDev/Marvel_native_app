@@ -1,7 +1,7 @@
-import { createStore } from 'redux'
-import app from './reducers'
+import { createStore } from "redux"
+import app from "./reducers"
 
-middlewares = []
+let middlewares = []
 /// Adds up middlewares
 
 

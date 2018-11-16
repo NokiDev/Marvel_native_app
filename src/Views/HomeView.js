@@ -16,7 +16,7 @@ export default class HomeView extends Component {
 		return (
 			<View id="home">
 				<Header>
-					<Button title="Erase Key" onPress={() => { this._removeData()}}></Button>
+					<Button title="Erase Key" onPress={() => {}}/>
 				</Header>
 			</View>
 		)

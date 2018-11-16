@@ -1,6 +1,6 @@
-import {createStackNavigator} from "react-navigation"
+import { createStackNavigator } from "react-navigation"
 
-import HomeView from "@/Views/HomeView"
+import HomeView from "~/Views/HomeView"
 
 const RootStack = createStackNavigator({
 	Home: {
@@ -13,6 +13,7 @@ export default createStackNavigator(
 		Home: RootStack,
 		navigationOptions: () => ({
 			title: "Home",
+
 		})
 	},
 	{
