@@ -16,7 +16,6 @@
     "react"
   ],
   "rules": {
-    "no-unused-vars": 2,
     "no-trailing-spaces": 2,
     "prefer-template": 2,
     "react/no-redundant-should-component-update": 2,
