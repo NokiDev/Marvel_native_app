@@ -3,7 +3,7 @@
 
 ## GOALS
 
-- Develop a POC around [https://developer.marvel.com/] (Marvel Api)
+- Develop a POC around [Marvel Api] (https://developer.marvel.com/)
 - Have a clean architecture
 - Use course knowledge
 - Use ES6
