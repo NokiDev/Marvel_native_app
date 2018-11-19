@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable'
-import { mergeMap, map } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operator';
 
 // STORAGE.
 import { AsyncStorage } from 'react-native'; 
