@@ -1,5 +1,4 @@
 import axios from "axios"
-import reduxStore from "~/Redux/store"
 import md5 from "md5"
 
 // Represent Marvel API abstraction for https://developer.marvel.com
@@ -10,17 +9,6 @@ class Marvel_API {
 	base_url = "https://gateway.marvel.com//v1/public/characters"
 	private_api_key = ""
 	public_api_key = ""
-
-	constructor() {
-		this.unsubscribe = reduxStore.subscribe(() => {
-			console.log(reduxStore.getState())
-			// TODO update api_key.
-		})
-	}
-
-	destructor() {
-		this.unsubscribe()
-	}
 
 	/*
 	name string
@@ -49,10 +37,10 @@ class Marvel_API {
 		})
 			.then(res => {
 				console.log("redux", res)
-				/*reduxStore.dispatch(
+				/*ReduxStore.dispatch(
 			allCharactersDisplay({
-			  list: res.data.data.results,
-			  offset: res.data.data.offset
+			list: res.data.data.results,
+			offset: res.data.data.offset
 			})
 		  )*/
 			})

@@ -1,16 +1,18 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {AsyncStorage, Text} from "react-native"
 import {connect} from "react-redux"
-import authActions from "~/Redux/actions/auth.actions"
+import {AsyncStorage, Text} from "react-native"
 import {Container, Content, Header} from "native-base"
 import ApiKeyFormPart from "~/Components/Auth/ApiKeyFormPart"
+
+import {connectApi} from "~/Redux/actions/marvelApi.actions"
 
 class Login extends React.Component {
 static propTypes = {
 	navigation : PropTypes.object,
 	OnConnect : PropTypes.func
 }
+
 	_storeData = async (private_api_key, public_api_key) => {
 		try {
 			await AsyncStorage.setItem("private_api_token", private_api_key)
@@ -33,7 +35,7 @@ static propTypes = {
 						justifyContent: "space-between",
 						flexDirection: "column"
 					}}>
-						<ApiKeyFormPart api_name="MARVEL API" onSubmit={this.props.OnConnect}/>
+						<ApiKeyFormPart api_name="MARVEL API" onSubmit={this.props.onConnect}/>
 					</Container>
 				</Content>
 			</Container>
@@ -41,16 +43,19 @@ static propTypes = {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onConnect: (private_api_key, public_api_key) => {
-			this._storeData(private_api_key, public_api_key)
-			return dispatch(authActions.connect(private_api_key, public_api_key))
-		}
+const mapDispatchToProps = (dispatch, props) => ({
+	onConnect: (private_key, public_key ) => {
+		console.log("CALLED")
+		dispatch(connectApi(private_key,public_key))
 	}
-}
+	// Find a way to navigate to home on success. this.props.navigation.navigate("Home");
+	//dispatch(connectApi(private_api_key, public_api_key))
+})
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state, props) => ({
+	
+})
+
 
 export default connect(
 	mapStateToProps,

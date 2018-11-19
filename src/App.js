@@ -10,18 +10,19 @@ import React, { Component } from "react"
 import RootStack from "./Routes/Routes"
 import { ThemeProvider } from "styled-components"
 import { Provider } from "react-redux"
-import reduxStore from "~/Redux/store"
+import {configureStore} from "~/Redux/store"
 
 const theme = {}
+const reduxStore = configureStore({})
 
 export default class App extends Component {
 	render() {
 		return (
-			<Provider store={reduxStore}>
-				<ThemeProvider theme={theme}>
+			<ThemeProvider theme={theme}>
+				<Provider store={reduxStore}>
 					<RootStack />
-				</ThemeProvider>
-			</Provider>
+				</Provider>
+			</ThemeProvider>
 		)
 	}
 }

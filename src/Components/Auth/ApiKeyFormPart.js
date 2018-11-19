@@ -5,7 +5,12 @@ import { Button, Item, Input, Content, H1} from "native-base"
 import { Text } from "react-native"
 import Spacer from "~/Components/Spacer"
 
-export default class ApiKeyFormPart extends React.Component {
+
+//
+import {connect} from "react-redux"
+import {connectApi} from "~/Redux/actions/marvelApi.actions"
+
+class ApiKeyFormPart extends React.Component {
 static propTypes = {
 	api_name: PropTypes.string,
 	onSubmit: PropTypes.func
@@ -48,3 +53,26 @@ render() {
 	)
 }
 }
+
+
+const mapDispatchToProps = (dispatch, props) => {
+	console.log(props)
+	return {
+	onConnect: (private_api_key, public_api_key) => 
+	{	
+		// Find a way to navigate to home on success. this.props.navigation.navigate("Home");
+		dispatch(connectApi(private_api_key, public_api_key))
+	}
+}
+}
+
+const mapStateToProps = (state, props) => {
+	console.log(props)
+	return{}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ApiKeyFormPart)
+

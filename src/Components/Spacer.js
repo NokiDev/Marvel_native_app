@@ -10,7 +10,7 @@ static propTypes = {
 
 render() {
 	return (
-		<View style={{width: this.props.width, height: this.props.height}}></View>
+		<View style={{width: this.props.width, height: this.props.height}}/>
 	)
 }
 }
