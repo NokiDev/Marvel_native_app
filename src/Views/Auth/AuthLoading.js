@@ -6,8 +6,14 @@ import {
 	View
 } from "react-native"
 import PropTypes from "prop-types"
+import { connect } from "react-redux";
 
-export default class AuthLoading extends React.Component {
+// TODO make a global reinit state.
+import { resumeConnectApi } from '~/Redux/actions/marvelApi.actions'
+
+
+
+class AuthLoading extends React.Component {
 
 	static propTypes = {
 		navigation : PropTypes.object
@@ -15,20 +21,7 @@ export default class AuthLoading extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this._bootstrapAsync()
-	}
-
-	// Fetch the token from storage then navigate to our appropriate place
-	_bootstrapAsync = async () => {
-		const userToken = await AsyncStorage.getItem("api_token")
-		/// Api key is found
-		if (userToken) {
-			// Dispatch connect action
-			this.props.navigation.navigate("App")
-		}
-		else {
-			this.props.navigation.navigate("Auth")
-		}
+		this.props.onLoad()
 	}
 
 	// Render any loading content that you like here
@@ -41,3 +34,19 @@ export default class AuthLoading extends React.Component {
 		)
 	}
 }
+
+const mapDispatchToProps = (dispatch, props) => ({
+	onLoad : () => {
+		dispatch(resumeConnectApi(props.navigation))
+	}
+})
+
+const mapStateToProps = (state) => ({
+	
+})
+
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AuthLoading)

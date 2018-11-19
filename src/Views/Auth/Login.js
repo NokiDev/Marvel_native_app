@@ -46,7 +46,7 @@ static propTypes = {
 const mapDispatchToProps = (dispatch, props) => ({
 	onConnect: (private_key, public_key ) => {
 		console.log("CALLED")
-		dispatch(connectApi(private_key,public_key))
+		dispatch(connectApi(private_key,public_key, props.navigation))
 	}
 	// Find a way to navigate to home on success. this.props.navigation.navigate("Home");
 	//dispatch(connectApi(private_api_key, public_api_key))
