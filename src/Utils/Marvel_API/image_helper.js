@@ -1,4 +1,4 @@
-export default class ImageHelper {
+
 	/*
 	Enum Object regrouping differents size of image available for Marvel API See https://developer.marvel.com/documentation/images
 
@@ -26,8 +26,7 @@ export default class ImageHelper {
 	full-size image 	no variant descriptor
 	* */
 
-	const
-	imageFormat = Object.freeze({
+export const imageFormat = Object.freeze({
 		portrait_small: Symbol("portrait_small"),
 		portrait_medium: Symbol("portrait_medium"),
 		portrait_xlarge: Symbol("portrait_xlarge"),
@@ -50,11 +49,9 @@ export default class ImageHelper {
 		landscape_incredible: Symbol("landscape_incredible"),
 
 		full_size: Symbol("full_size"),
-	})
+})
 
-	// Construct image source path for Marvel API, See https://developer.marvel.com/documentation/images
-	static build_image_link(path, extension, imageFormat) {
-		return `${path}/${imageFormat}.${extension}`
-	}
-
+// Construct image source path for Marvel API, See https://developer.marvel.com/documentation/images
+export const build_image_link = (path, extension, imageFormat) => {
+	return `${path}/${imageFormat}.${extension}`
 }

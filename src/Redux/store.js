@@ -8,9 +8,9 @@ import { createLogger } from 'redux-logger'
 export const configureStore = (preloadedState) => {
     const middlewares = []
     const epicMiddleware = createEpicMiddleware() 
-   // const logger = createLogger({})
+    // const logger = createLogger({})
     middlewares.push(epicMiddleware);
-   // middlewares.push(logger);
+    // middlewares.push(logger);
 
     const middlewareEnhancer = applyMiddleware(...middlewares)
     const enhancers = [middlewareEnhancer]
