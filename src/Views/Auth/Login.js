@@ -13,16 +13,6 @@ static propTypes = {
 	onConnect : PropTypes.func
 }
 
-	_storeData = async (private_api_key, public_api_key) => {
-		try {
-			await AsyncStorage.setItem("private_api_token", private_api_key)
-			await AsyncStorage.setItem("public_api_token", public_api_key)
-			this.props.navigation.navigate("Home")
-		} catch (error) {
-			// Error saving data
-		}
-	}
-
 	render() {
 		return (
 			<Container>

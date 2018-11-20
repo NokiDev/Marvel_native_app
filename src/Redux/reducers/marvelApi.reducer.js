@@ -36,6 +36,7 @@ const initialState = {
 
 const marvelApiReducers = {
 	 marvelAuthentication: (state = initialState, action) => {
+		 	console.log(state, action)
 			switch (action.type) {
 				 case marvelAPIActions.CONNECT_API_DONE :
 						return {

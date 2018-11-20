@@ -16,7 +16,8 @@ import { resumeConnectApi } from '~/Redux/actions/marvelApi.actions'
 class AuthLoading extends React.Component {
 
 	static propTypes = {
-		navigation : PropTypes.object
+		navigation : PropTypes.object,
+		onLoad: PropTypes.func
 	}
 
 	constructor(props) {
@@ -41,14 +42,13 @@ class AuthLoading extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => ({
 	onLoad : () => {
+		console.log("TEST LOADING")
 		dispatch(resumeConnectApi(props.navigation))
 	}
 })
 
 const mapStateToProps = (state) => {
-	return {
-		
-	}
+	return {}
 }
 
 

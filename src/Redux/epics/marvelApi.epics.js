@@ -27,9 +27,6 @@ export const disconnectApiEpic = (action$) => action$.pipe(
 				from(AsyncStorage.removeItem("private_key")).pipe(
 					map(() => {
 							return disconnectApiDone(action.payload.navigation)
-					}),
-					tap(() => {
-							action.payload.navigation.navigate("Auth")
 					})
 				)
 			)
@@ -66,12 +63,12 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 			mergeMap(pub_key =>
 				from(AsyncStorage.getItem("private_key")).pipe(
 					map(priv_key => {
-							if (pub_key && priv_key) {
-									return connectApiDone(priv_key, pub_key, action.payload.navigation)
-							}
-							else {
-									return disconnectApiDone(action.payload.navigation)
-							}
+						if (pub_key && priv_key) {
+								return connectApiDone(priv_key, pub_key, action.payload.navigation)
+						}
+						else {
+								return disconnectApiDone(action.payload.navigation)
+						}
 					})
 				)
 			)

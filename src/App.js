@@ -15,7 +15,11 @@ import {configureStore} from "~/Redux/store"
 const theme = {}
 const reduxStore = configureStore({})
 
+
 export default class App extends Component {
+
+	
+
 	render() {
 		return (
 			<ThemeProvider theme={theme}>
