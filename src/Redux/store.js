@@ -1,23 +1,23 @@
-import { applyMiddleware, compose, createStore } from 'redux'
-import {rootReducer} from './reducers'
-import {rootEpic} from './epics'
-import { createEpicMiddleware } from 'redux-observable';
-import { createLogger } from 'redux-logger'
+import { applyMiddleware, compose, createStore } from "redux"
+import {rootReducer} from "./reducers"
+import {rootEpic} from "./epics"
+import { createEpicMiddleware } from "redux-observable"
+import { createLogger } from "redux-logger"
 
 
 export const configureStore = (preloadedState) => {
-    const middlewares = []
-    const epicMiddleware = createEpicMiddleware() 
-    // const logger = createLogger({})
-    middlewares.push(epicMiddleware);
-    // middlewares.push(logger);
+	const middlewares = []
+	const epicMiddleware = createEpicMiddleware()
+	// const logger = createLogger({})
+	middlewares.push(epicMiddleware)
+	// middlewares.push(logger);
 
-    const middlewareEnhancer = applyMiddleware(...middlewares)
-    const enhancers = [middlewareEnhancer]
-    const composedEnhancers = compose(...enhancers)
-    const store = createStore(rootReducer, preloadedState, composedEnhancers)
+	const middlewareEnhancer = applyMiddleware(...middlewares)
+	const enhancers = [middlewareEnhancer]
+	const composedEnhancers = compose(...enhancers)
+	const store = createStore(rootReducer, preloadedState, composedEnhancers)
 
-    epicMiddleware.run(rootEpic);
+	epicMiddleware.run(rootEpic)
 
-    return store
+	return store
 }

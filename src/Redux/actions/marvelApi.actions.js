@@ -1,4 +1,3 @@
-// Exported public actions .
 export const marvelAPIActions = {
 	 CONNECT_API_DONE: "CONNECT_API_DONE",
 	 CONNECTING_API: "CONNECTING_API",
@@ -12,6 +11,13 @@ export const marvelAPIActions = {
 	 FETCH_COMICS_FAILURE: "FETCH_COMICS_FAILURE"
 }
 
+export const resumeConnectApi = (navigation) => ({
+    type: marvelAPIActions.RESUME_CONNECT_API,
+    payload : {
+        navigation : navigation,
+    }
+})
+
 // Registers api keys to use Marvel API
 export const connectApi = (private_api_key, public_api_key, navigation) => ({
 	 type: marvelAPIActions.CONNECT_API,
@@ -21,31 +27,23 @@ export const connectApi = (private_api_key, public_api_key, navigation) => ({
 			navigation: navigation,
 	 }
 })
-
-export const disconnectApi = (navigation) => ({
-	 type: marvelAPIActions.DISCONNECT_API,
-	 payload: {
-			private: "",
-			public: "",
-			navigation
-	 }
-})
-
-export const resumeConnectApi = (navigation) => ({
-	 type: marvelAPIActions.RESUME_CONNECT_API,
-	 payload: {
-			navigation: navigation,
-	 }
-})
-
 // Registers api keys to use Marvel API
 export const connectApiDone = (private_api_key, public_api_key, navigation) => ({
-	 type: marvelAPIActions.CONNECT_API_DONE,
-	 payload: {
-			private: private_api_key,
-			public: public_api_key,
-			navigation: navigation
-	 }
+    type: marvelAPIActions.CONNECT_API_DONE,
+    payload : {
+        private: private_api_key,
+        public: public_api_key,
+        navigation: navigation
+    }
+})
+
+export const disconnectApi = (navigation) => ({
+	type: marvelAPIActions.DISCONNECT_API,
+	payload: {
+		private: "",
+		public: "",
+		navigation
+	}
 })
 
 export const disconnectApiDone = (navigation) => ({

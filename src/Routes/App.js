@@ -13,7 +13,6 @@ export default createStackNavigator(
 		Home: RootStack,
 		navigationOptions: () => ({
 			title: "Home",
-
 		})
 	},
 	{
