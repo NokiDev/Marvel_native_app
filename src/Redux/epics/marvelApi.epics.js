@@ -1,7 +1,8 @@
-import { marvelAPIActions, disconnectApiDone, connectApiDone } from "../actions/marvelApi.actions"
+import { marvelAPIActions, disconnectApiDone, connectApiDone, fetchComics, fetchComicsSuccess, fetchComicsFailure } from "../actions/marvelApi.actions"
 import { ofType } from "redux-observable"
-import { mergeMap, map, tap } from "rxjs/operators"
-import { from } from "rxjs"
+import { mergeMap, map, tap, catchError, switchMap } from "rxjs/operators"
+import { from, Observable } from "rxjs"
+import { ajax } from "rxjs/ajax"
 
 // STORAGE.
 import { AsyncStorage } from "react-native"
@@ -77,4 +78,12 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 			)
 		)
 	)
+)
+
+export const fetchComicsEpic = (action$) => action$.pipe(
+		ofType(marvelAPIActions.FETCH_COMICS),
+ 		switchMap(() => {
+ 			 return ajax
+				.getJSON("https://gateway.marvel.com/v1/public/comics")
+		})
 )
