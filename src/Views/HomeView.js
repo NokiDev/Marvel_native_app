@@ -32,11 +32,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 	}
 })
 
-const mapStateToProps = (state) => ({
-
-})
-
 export default connect(
-	mapStateToProps,
+	(state) => ({}),
 	mapDispatchToProps
 )(HomeView)

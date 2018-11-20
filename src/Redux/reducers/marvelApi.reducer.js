@@ -1,5 +1,6 @@
 import {marvelAPIActions} from '../actions/marvelApi.actions'
 
+
 //
 const initialState = {
 	baseUrl: 'https://gateway.marvel.com//v1/public/',
@@ -38,13 +39,11 @@ export default (state=initialState, action) => {
 	console.log("marvel reducer",action)
 	switch (action.type) {
 	case marvelAPIActions.CONNECT_API_DONE :
-		action.payload.navigation.navigate("Home")
 		return {
 			...state,
 			apiKeys: action.payload
 		}
 	case marvelAPIActions.DISCONNECT_API_DONE :
-		action.payload.navigation.navigate("Auth")
 		return {
 			...state,
 			apiKeys: action.payload

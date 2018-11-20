@@ -21,6 +21,10 @@ class AuthLoading extends React.Component {
 
 	constructor(props) {
 		super(props)
+		
+	}
+
+	componentDidMount() {
 		this.props.onLoad()
 	}
 
@@ -41,9 +45,11 @@ const mapDispatchToProps = (dispatch, props) => ({
 	}
 })
 
-const mapStateToProps = (state) => ({
-	
-})
+const mapStateToProps = (state) => {
+	return {
+		
+	}
+}
 
 
 export default connect(
