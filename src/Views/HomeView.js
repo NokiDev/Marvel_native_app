@@ -18,11 +18,17 @@ class HomeView extends Component {
 		}
 		
 		componentDidMount() {
-				this.props.onFetchComics()
+				//this.props.onFetchComics()
+		}
+
+		componentWillUnmount() {
+			this.closeDrawer()
 		}
 		
 		closeDrawer = () => {
-			this.drawer._root.close()
+			if(this.drawer) {
+				this.drawer._root.close()
+			}
 		};
 		openDrawer = () => {
 			this.drawer._root.open()
@@ -40,7 +46,7 @@ class HomeView extends Component {
 					openDrawerOffset={0.2}
 					closedDrawerOffset={0}
 					panOpenMask={.3}
-					panCloseMask={.50}
+					panCloseMask={.30}
 					acceptPan={true}
 					>
 					<Container style={homeView.view} id="home">
