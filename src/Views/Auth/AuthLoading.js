@@ -1,13 +1,11 @@
 import React from "react"
 import {
 	ActivityIndicator,
-	AsyncStorage,
-	StatusBar,
-	View
+	StatusBar
 } from "react-native"
 import PropTypes from "prop-types"
-import { connect } from "react-redux";
-
+import { connect } from "react-redux"
+import { Container } from "native-base"
 // TODO make a global reinit state.
 import { resumeConnectApi } from '~/Redux/actions/marvelApi.actions'
 
@@ -32,10 +30,10 @@ class AuthLoading extends React.Component {
 	// Render any loading content that you like here
 	render() {
 		return (
-			<View>
+			<Container>
 				<ActivityIndicator/>
 				<StatusBar barStyle="default"/>
-			</View>
+			</Container>
 		)
 	}
 }

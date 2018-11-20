@@ -1,9 +1,10 @@
 import React from "react"
+import {StyleSheet} from "react-native"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
-import {AsyncStorage} from "react-native"
-import {Container, Content, Header} from "native-base"
+import {Container, Content, Header, Body, H1, View} from "native-base"
 import ApiKeyFormPart from "~/Components/Auth/ApiKeyFormPart"
+import Spacer from "~/Components/Spacer"
 
 import {connectApi} from "~/Redux/actions/marvelApi.actions"
 
@@ -15,26 +16,40 @@ static propTypes = {
 
 	render() {
 		return (
-			<Container>
-				<Content>
-					<Header/>
-					<Container style={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "space-between",
-						flexDirection: "column"
-					}}>
-						<ApiKeyFormPart api_name="MARVEL API" onSubmit={this.props.onConnect}/>
-					</Container>
+			<Container style={{backgroundColor : '#800000'}}>
+				<Content padder contentContainerStyle={{flexDirection: "column", justifyContent:"space-around", height: "100%"}}>
+					<View>
+						<Header transparent>
+							<Body style={{justifyContent:"center"}}>
+								<H1  style={loginPage.marvel_logo}>
+									MARVEL API
+								</H1>
+							</Body>
+						</Header>
+						<Spacer height={60}/>
+						<ApiKeyFormPart onSubmit={this.props.onConnect}/>
+						<Spacer height={200}/>
+					</View>
 				</Content>
 			</Container>
 		)
 	}
 }
 
+const loginPage = StyleSheet.create({
+	marvel_logo : {
+		lineHeight: 60,
+		textAlignVertical:"bottom",
+		alignSelf: "center",
+		color : "white",
+		fontSize: 60,
+		fontWeight: "bold",
+	}
+})
+
 const mapDispatchToProps = (dispatch, props) => ({
 	onConnect: (private_key, public_key ) => {
-		dispatch(connectApi(private_key,public_key, props.navigation))
+		dispatch(connectApi(private_key, public_key, props.navigation))
 	}
 	// Find a way to navigate to home on success. this.props.navigation.navigate("Home");
 	//dispatch(connectApi(private_api_key, public_api_key))

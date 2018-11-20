@@ -6,7 +6,8 @@ import PropTypes from "prop-types"
 export default class MarvelCard extends Component {
 
 	 static propTypes = {
-			uri: PropTypes.string
+			uri: PropTypes.string,
+			style: PropTypes.object
 	 }
 
 	 render() {

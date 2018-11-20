@@ -15,24 +15,24 @@ static propTypes = {
     render() {
         
         return (
-            <View style={{backgroundColor:'#ffff', height: 1000}}>
-                <Text>Connected with</Text>
+            <View style={{backgroundColor: '#b22222', height: "100%"}}>
+                <Button title="Disconnect" onPress={this.props.onDisconnect}/>
+                <Text style={{color: "white"}}>Connected with</Text>
                 <Text>{this.props.private_key}</Text>
                 <Text>{this.props.public_key}</Text>
-                <Button title="Erase Key" onPress={this.props.onDisconnect}/>
             </View>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    private_key: state.marvelAuth.apiKeys.private,
-    public_key: state.marvelAuth.apiKeys.public,
+    private_key: state.marvelApiReducers.apiKeys.private,
+    public_key: state.marvelApiReducers.apiKeys.public,
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
 		onDisconnect: () => {
-				dispatch(disconnectApi(props.navigation))
+			dispatch(disconnectApi(props.navigation))
 		}
 })
 

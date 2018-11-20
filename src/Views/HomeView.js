@@ -1,12 +1,12 @@
 import React, {Component} from "react"
-import {View} from "react-native"
+import { StyleSheet} from "react-native"
 import MarvelCard from "../Components/Card"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {disconnectApi, fetchComics} from "~/Redux/actions/marvelApi.actions"
 
-import { Drawer } from "native-base"
-import MarvelSideBar from "~/Components/SideBar"
+import { Drawer, Container } from 'native-base';
+import MarvelSideBar from '~/Components/SideBar';
 
 class HomeView extends Component {
 		static propTypes = {
@@ -33,7 +33,7 @@ class HomeView extends Component {
 				<Drawer
 					ref={(ref) => { this.drawer = ref }}
 					type='displace'
-					content={<MarvelSideBar navigation={this.props.navigation} />}
+					content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation} />}
 					onClose={() => this.closeDrawer()}
 					onOpen={() => this.openDrawer()}
 					side="left"
@@ -43,9 +43,10 @@ class HomeView extends Component {
 					panCloseMask={.50}
 					acceptPan={true}
 					>
-					<View id="home">
+					<Container style={homeView.view} id="home">
+						{}
 						<MarvelCard uri={"/hello"}/>
-					</View>
+					</Container>
 				</Drawer>
 				
 			)
@@ -54,6 +55,13 @@ class HomeView extends Component {
 
 const mapStateToProps = (state) => ({
 		state: state
+})
+
+const homeView = StyleSheet.create({
+	view : {
+		backgroundColor : '#800000',
+		height : "100%"
+	}
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
