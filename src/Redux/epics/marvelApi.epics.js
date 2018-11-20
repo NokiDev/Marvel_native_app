@@ -76,7 +76,11 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 	)
 )
 
-export const fetchComicsEpic = (action$) => action$.pipe(
+export const fetchComicsEpic = action$ => action$.pipe(
 	ofType(marvelAPIActions.FETCH_COMICS),
-	
+	mergeMap(action =>
+		ajax.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
+			map(response => console.log(response))
+		)
+	)
 )

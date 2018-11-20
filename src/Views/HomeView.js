@@ -5,8 +5,8 @@ import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {disconnectApi, fetchComics} from "~/Redux/actions/marvelApi.actions"
 
-import { Drawer } from 'native-base';
-import MarvelSideBar from '~/Components/SideBar';
+import { Drawer } from "native-base"
+import MarvelSideBar from "~/Components/SideBar"
 
 class HomeView extends Component {
 		static propTypes = {
@@ -18,7 +18,7 @@ class HomeView extends Component {
 		}
 		
 		componentDidMount() {
-				//this.props.onFetchComics()
+				this.props.onFetchComics()
 		}
 		
 		closeDrawer = () => {
@@ -31,7 +31,7 @@ class HomeView extends Component {
 		render() {
 			return (
 				<Drawer
-					ref={(ref) => { this.drawer = ref; }}
+					ref={(ref) => { this.drawer = ref }}
 					type='displace'
 					content={<MarvelSideBar navigation={this.props.navigation} />}
 					onClose={() => this.closeDrawer()}
@@ -44,7 +44,6 @@ class HomeView extends Component {
 					acceptPan={true}
 					>
 					<View id="home">
-						{}
 						<MarvelCard uri={"/hello"}/>
 					</View>
 				</Drawer>
@@ -53,7 +52,9 @@ class HomeView extends Component {
 		}
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+		state: state
+})
 
 const mapDispatchToProps = (dispatch, props) => ({
 		onDisconnect: () => {

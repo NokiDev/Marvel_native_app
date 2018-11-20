@@ -42,7 +42,6 @@ class AuthLoading extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => ({
 	onLoad : () => {
-		console.log("TEST LOADING")
 		dispatch(resumeConnectApi(props.navigation))
 	}
 })
