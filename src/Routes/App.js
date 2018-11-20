@@ -6,7 +6,15 @@ const RootStack = createStackNavigator({
 	Home: {
 		screen: HomeView
 	}
-})
+},
+{
+	initialRouteName: "Home",
+	headerMode: "none",
+	navigationOptions: {
+		headerVisible: false,
+	}
+}
+)
 
 export default createStackNavigator(
 	{
