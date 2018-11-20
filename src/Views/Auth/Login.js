@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
-import {AsyncStorage, Text} from "react-native"
+import {AsyncStorage} from "react-native"
 import {Container, Content, Header} from "native-base"
 import ApiKeyFormPart from "~/Components/Auth/ApiKeyFormPart"
 
@@ -10,7 +10,7 @@ import {connectApi} from "~/Redux/actions/marvelApi.actions"
 class Login extends React.Component {
 static propTypes = {
 	navigation : PropTypes.object,
-	OnConnect : PropTypes.func
+	onConnect : PropTypes.func
 }
 
 	_storeData = async (private_api_key, public_api_key) => {
@@ -28,7 +28,6 @@ static propTypes = {
 			<Container>
 				<Content>
 					<Header/>
-					<Text>{JSON.stringify(this.props)}</Text>
 					<Container style={{
 						display: "flex",
 						alignItems: "center",
@@ -52,9 +51,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 })
 
 const mapStateToProps = (state, props) => {
-	return {
-		
-	}
+	return {}
 }
 
 

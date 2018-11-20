@@ -1,5 +1,3 @@
-import * as marvel from './marvelApi.actions'
-
-console.log("MARVEL actions", marvel)
+import * as marvel from "./marvelApi.actions"
 
 export default {marvel}

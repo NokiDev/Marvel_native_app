@@ -56,18 +56,16 @@ render() {
 
 
 const mapDispatchToProps = (dispatch, props) => {
-	console.log(props)
 	return {
-	onConnect: (private_api_key, public_api_key) => 
-	{	
+		onConnect: (private_api_key, public_api_key) =>
+		{
 		// Find a way to navigate to home on success. this.props.navigation.navigate("Home");
-		dispatch(connectApi(private_api_key, public_api_key))
+			dispatch(connectApi(private_api_key, public_api_key))
+		}
 	}
-}
 }
 
 const mapStateToProps = (state, props) => {
-	console.log(props)
 	return{}
 }
 
