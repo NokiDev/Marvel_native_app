@@ -1,13 +1,21 @@
-// Exported public actions .
 export const marvelAPIActions = {
-	CONNECT_API_DONE: "CONNECT_API_DONE",
-	CONNECTING_API: "CONNECTING_API",
-	DISCONNECT_API_DONE: "DISCONNECT_API_DONE",
-	FETCH_COMMICS_BY_DATE: "FETCH_COMMICS_BY_DATE",
-	CONNECT_API: "CONNECT_API",
-	DISCONNECT_API: "DISCONNECT_API",
-	RESUME_CONNECT_API: "RESUME_CONNECT_API"
+// CONNECTION RELATED ACTIONS
+    CONNECT_API_DONE : 'CONNECT_API_DONE',
+    CONNECTING_API: 'CONNECTING_API',
+    DISCONNECT_API_DONE: 'DISCONNECT_API_DONE',
+    CONNECT_API: 'CONNECT_API',
+    DISCONNECT_API: 'DISCONNECT_API',
+    RESUME_CONNECT_API : 'RESUME_CONNECT_API',
+// DATA REQUESTS RELATED ACTIONS
+    FETCH_COMMICS_BY_DATE: 'FETCH_COMMICS_BY_DATE',
 }
+
+export const resumeConnectApi = (navigation) => ({
+    type: marvelAPIActions.RESUME_CONNECT_API,
+    payload : {
+        navigation : navigation,
+    }
+})
 
 // Registers api keys to use Marvel API
 export const connectApi = (private_api_key, public_api_key, navigation) => ({
@@ -17,6 +25,15 @@ export const connectApi = (private_api_key, public_api_key, navigation) => ({
 		public: public_api_key,
 		navigation: navigation,
 	}
+})
+// Registers api keys to use Marvel API
+export const connectApiDone = (private_api_key, public_api_key, navigation) => ({
+    type: marvelAPIActions.CONNECT_API_DONE,
+    payload : {
+        private: private_api_key,
+        public: public_api_key,
+        navigation: navigation
+    }
 })
 
 export const disconnectApi = (navigation) => ({
@@ -28,22 +45,6 @@ export const disconnectApi = (navigation) => ({
 	}
 })
 
-export const resumeConnectApi = (navigation) => ({
-	type: marvelAPIActions.RESUME_CONNECT_API,
-	payload: {
-		navigation: navigation,
-	}
-})
-
-// Registers api keys to use Marvel API
-export const connectApiDone = (private_api_key, public_api_key, navigation) => ({
-	type: marvelAPIActions.CONNECT_API_DONE,
-	payload: {
-		private: private_api_key,
-		public: public_api_key,
-		navigation: navigation
-	}
-})
 export const disconnectApiDone = (navigation) => ({
 	type: marvelAPIActions.DISCONNECT_API_DONE,
 	payload: {
