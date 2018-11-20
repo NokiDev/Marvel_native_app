@@ -3,4 +3,4 @@ import { connectApiEpic, connectDoneEpic, disconnectApiEpic, disconnectDoneEpic,
 
 export const rootEpic = combineEpics(
 	connectApiEpic, connectDoneEpic, disconnectApiEpic, disconnectDoneEpic, resumeConnectApiEpic
-);
+)
