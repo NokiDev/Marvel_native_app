@@ -46,7 +46,7 @@ class HomeView extends Component {
 					openDrawerOffset={0.2}
 					closedDrawerOffset={0}
 					panOpenMask={.3}
-					panCloseMask={.30}
+					panCloseMask={.3}
 					acceptPan={true}
 					>
 					<Container style={homeView.view} id="home">
