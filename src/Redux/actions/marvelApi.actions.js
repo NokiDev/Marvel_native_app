@@ -55,12 +55,8 @@ export const disconnectApiDone = (navigation) => ({
 		}
 })
 
-export const fetchComics = (keys, url) => ({
-		type: marvelAPIActions.FETCH_COMICS,
-		payload: {
-				keys,
-				url
-		}
+export const fetchComics = () => ({
+		type: marvelAPIActions.FETCH_COMICS
 })
 
 export const fetchComicsSuccess = (comics) => ({
@@ -68,7 +64,7 @@ export const fetchComicsSuccess = (comics) => ({
 		payload: comics
 })
 
-export const fetchComicsFailure = (message) => ({
+export const fetchComicsFailure = (error) => ({
 		type: marvelAPIActions.FETCH_COMICS_FAILURE,
-		payload: message
+		payload: error
 })

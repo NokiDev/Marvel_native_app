@@ -5,12 +5,13 @@ import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {disconnectApi, fetchComics} from "~/Redux/actions/marvelApi.actions"
 
-import { Drawer, Container } from 'native-base';
-import MarvelSideBar from '~/Components/SideBar';
+import { Drawer, Container } from "native-base"
+import MarvelSideBar from "~/Components/SideBar"
 
 class HomeView extends Component {
 		static propTypes = {
-				onDisconnect: PropTypes.func
+				onDisconnect: PropTypes.func,
+				onFetchComics: PropTypes.func
 		}
 		
 		constructor(props) {
@@ -18,7 +19,8 @@ class HomeView extends Component {
 		}
 		
 		componentDidMount() {
-				//this.props.onFetchComics()
+				
+				this.props.onFetchComics()
 		}
 
 		componentWillUnmount() {
@@ -33,6 +35,10 @@ class HomeView extends Component {
 		openDrawer = () => {
 			this.drawer._root.open()
 		};
+		
+		logSomething = () => {
+				console.log("logged man")
+		}
 
 		render() {
 			return (
@@ -41,7 +47,7 @@ class HomeView extends Component {
 					type='displace'
 					content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation} />}
 					onClose={() => this.closeDrawer()}
-					onOpen={() => this.openDrawer()}
+					onOpen={() => this.logSomething()}
 					side="left"
 					openDrawerOffset={0.2}
 					closedDrawerOffset={0}
@@ -65,7 +71,7 @@ const mapStateToProps = (state) => ({
 
 const homeView = StyleSheet.create({
 	view : {
-		backgroundColor : '#800000',
+		backgroundColor : "#800000",
 		height : "100%"
 	}
 })

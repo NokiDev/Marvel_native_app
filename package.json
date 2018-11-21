@@ -19,7 +19,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "md5": "^2.2.1",
     "native-base": "^2.8.1",
     "react": "16.6.0-alpha.8af6728",

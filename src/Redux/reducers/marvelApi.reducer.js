@@ -60,6 +60,7 @@ const marvelApiReducers = (state = initialState, action) => {
 							}
 						}
 				case marvelAPIActions.FETCH_COMICS_FAILURE:
+						console.log("payload", action.payload)
 						return {
 								...state,
 								loading: false,

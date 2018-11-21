@@ -1,8 +1,15 @@
-import {connectApiDone, disconnectApiDone, fetchComicsSuccess, marvelAPIActions} from "../actions/marvelApi.actions"
+import {
+		connectApiDone,
+		disconnectApiDone,
+		fetchComicsFailure,
+		fetchComicsSuccess,
+		marvelAPIActions
+} from "../actions/marvelApi.actions"
 import {ofType} from "redux-observable"
-import {catchError, map, mergeMap, tap} from "rxjs/operators"
-import {from} from "rxjs"
+import {map, mergeMap, catchError} from "rxjs/operators"
+import {from, of} from "rxjs"
 import {ajax} from "rxjs/ajax"
+import md5 from "md5"
 // STORAGE.
 import {AsyncStorage} from "react-native"
 
@@ -63,12 +70,12 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 			mergeMap(pub_key =>
 				from(AsyncStorage.getItem("private_key")).pipe(
 					map(priv_key => {
-						if (pub_key && priv_key) {
-								return connectApiDone(priv_key, pub_key, action.payload.navigation)
-						}
-						else {
-								return disconnectApiDone(action.payload.navigation)
-						}
+							if (pub_key && priv_key) {
+									return connectApiDone(priv_key, pub_key, action.payload.navigation)
+							}
+							else {
+									return disconnectApiDone(action.payload.navigation)
+							}
 					})
 				)
 			)
@@ -76,11 +83,30 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 	)
 )
 
-export const fetchComicsEpic = action$ => action$.pipe(
+export const fetchComicsEpic = (action$, state$) => action$.pipe(
 	ofType(marvelAPIActions.FETCH_COMICS),
-	mergeMap(action =>
-		ajax.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
-			map(response => console.log(response))
-		)
+	mergeMap(() => {
+				const state = state$.value
+				const publicKey = state.marvelApiReducers.apiKeys.public
+				const privateKey = state.marvelApiReducers.apiKeys.private
+				const TimeStamp = new Date().getMilliseconds()
+				const hash = md5(`${TimeStamp}${privateKey}${publicKey}`)
+				const url = `${state.marvelApiReducers.baseUrl}/comics`
+				const offset = state.marvelApiReducers.comics.offset
+				return ajax.getJSON(
+						url,
+						{
+								ts: TimeStamp,
+								apikey: publicKey,
+								hash: hash,
+								offset: offset
+						}
+				).pipe(
+					map(response => {
+							fetchComicsSuccess(response)
+					}),
+					catchError(error => of(fetchComicsFailure(error)))
+				)
+		}
 	)
 )
