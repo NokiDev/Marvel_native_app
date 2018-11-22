@@ -1,10 +1,9 @@
-import authentication from "./auth.reducer"
-import marvelApiReducers from "./marvelApi.reducer"
-//import theme from './theme.reducer'
 import {combineReducers} from "redux"
+
+import marvel from "./marvelApi"
+//import theme from './theme.reducer'
 
 
 export const rootReducer = combineReducers({
-		authentication,
-		marvelApiReducers
+		marvel
 })

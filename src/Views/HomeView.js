@@ -3,7 +3,8 @@ import { StyleSheet, FlatList} from "react-native"
 import MarvelCard from "../Components/Card"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
-import {disconnectApi, fetchComics} from "~/Redux/actions/marvelApi.actions"
+import {disconnectApi} from "~/Redux/actions/marvelApi/auth.actions"
+import {fetchComics} from "~/Redux/actions/marvelApi/comics.actions"
 
 import { Drawer, Container } from "native-base"
 import MarvelSideBar from "~/Components/SideBar"
@@ -76,7 +77,7 @@ const homeView = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => ({
-		comics: state.marvelApiReducers.comics.array
+		comics: state.marvel.comics.array
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

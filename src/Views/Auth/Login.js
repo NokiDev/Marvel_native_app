@@ -6,7 +6,7 @@ import {Container, Content, Header, Body, H1, View} from "native-base"
 import ApiKeyFormPart from "~/Components/Auth/ApiKeyFormPart"
 import Spacer from "~/Components/Spacer"
 
-import {connectApi} from "~/Redux/actions/marvelApi.actions"
+import {connectApi} from "~/Redux/actions/marvelApi/auth.actions"
 
 class Login extends React.Component {
 static propTypes = {

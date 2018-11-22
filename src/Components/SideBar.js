@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {View, Button, Text} from 'react-native'
 
-import {disconnectApi} from "~/Redux/actions/marvelApi.actions"
+import {disconnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 
 class MarvelSideBar extends Component {
 static propTypes = {
@@ -26,8 +26,8 @@ static propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    private_key: state.marvelApiReducers.apiKeys.private,
-    public_key: state.marvelApiReducers.apiKeys.public,
+    private_key: state.marvel.auth.apiKeys.private,
+    public_key: state.marvel.auth.apiKeys.public,
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

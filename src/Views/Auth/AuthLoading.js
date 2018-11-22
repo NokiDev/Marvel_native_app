@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Container } from "native-base"
 // TODO make a global reinit state.
-import { resumeConnectApi } from '~/Redux/actions/marvelApi.actions'
+import { resumeConnectApi } from '~/Redux/actions/marvelApi/auth.actions'
 
 
 

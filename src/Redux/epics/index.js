@@ -1,6 +1,6 @@
 import { combineEpics } from "redux-observable"
-import { connectApiEpic, connectDoneEpic, disconnectApiEpic, disconnectDoneEpic, resumeConnectApiEpic, fetchComicsEpic} from "../epics/marvelApi.epics"
+import marvel from './marvelApi'
 
 export const rootEpic = combineEpics(
-	connectApiEpic, connectDoneEpic, disconnectApiEpic, disconnectDoneEpic, resumeConnectApiEpic, fetchComicsEpic
+	...marvel
 )
