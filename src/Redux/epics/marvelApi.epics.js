@@ -8,8 +8,7 @@ import {
 import {ofType} from "redux-observable"
 import {map, mergeMap, catchError} from "rxjs/operators"
 import {from, of} from "rxjs"
-import {ajax} from "rxjs/ajax"
-import md5 from "md5"
+import { AjaxGetRequestFactory } from '~/Utils/Marvel_API/request_helper'
 // STORAGE.
 import {AsyncStorage} from "react-native"
 
@@ -71,10 +70,10 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 				from(AsyncStorage.getItem("private_key")).pipe(
 					map(priv_key => {
 							if (pub_key && priv_key) {
-									return connectApiDone(priv_key, pub_key, action.payload.navigation)
+								return connectApiDone(priv_key, pub_key, action.payload.navigation)
 							}
 							else {
-									return disconnectApiDone(action.payload.navigation)
+								return disconnectApiDone(action.payload.navigation)
 							}
 					})
 				)
@@ -87,43 +86,21 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 	ofType(marvelAPIActions.FETCH_COMICS),
 	mergeMap(() => {
 		const state = state$.value
-		const publicKey = state.marvelApiReducers.apiKeys.public
-		const privateKey = state.marvelApiReducers.apiKeys.private
-		const TimeStamp = new Date().getMilliseconds()
-		const hash = md5(`${TimeStamp}${privateKey}${publicKey}`)
-		const url = `${state.marvelApiReducers.baseUrl}/comics`
-		const offset = state.marvelApiReducers.comics.offset
-		return ajax({
-			method: "GET",
-			url:generateGetUrl(url, {
-				ts: TimeStamp,
-				apikey: publicKey,
-				hash: hash,
-				offset: offset
-			}),
-			headers: {
-				Accept: "*/*"
+		return AjaxGetRequestFactory(
+			`${state.marvelApiReducers.baseUrl}/comics`,
+			state.marvelApiReducers.apiKeys.private,
+			state.marvelApiReducers.apiKeys.public,
+			{
+				offset: state.marvelApiReducers.comics.offset
 			}
-		}).pipe(
+		).pipe(
 			map(ajaxRequest => {
 				return fetchComicsSuccess(ajaxRequest.response.data.results)
 			}),
 			catchError(error => {
+				console.log(error)
 				return of(fetchComicsFailure(error))
 			})
 		)
 	})
 )
-
-
-const generateGetUrl = (url, params) => {
-	let paramsExtra = ""
-	let counter = 0
-	for (let key in params) {
-		paramsExtra += (counter === 0) ? "?" : "&"
-		paramsExtra += `${key}=${params[key]}`
-		counter+=1
-	}
-
-	return `${url}${paramsExtra}`
-}
