@@ -13,7 +13,7 @@ class HomeView extends Component {
 		static propTypes = {
 				onDisconnect: PropTypes.func,
 				onFetchComics: PropTypes.func,
-				comics: PropTypes.array,
+				comics: PropTypes.object,
 				navigation: PropTypes.object,
 				comicsLoading: PropTypes.bool
 		}
@@ -53,16 +53,16 @@ class HomeView extends Component {
 		onViewableItemsChanged = ({viewableItems, changed}) => {
 				if (viewableItems.length !== 0)
 						Toast.show({
-								text: viewableItems[0].item.title,
+								text: this.props.comics[viewableItems[0].item].title,
 								duration: 0,
 								position: "top"
 						})
 		}
 		
 		renderListFooter = () => {
-				if(this.props.comics.isLoading === true){
-						return(<Spinner color={"white"}/>)
-				}else{
+				if (this.props.comics.isLoading === true) {
+						return (<Spinner color={"white"}/>)
+				} else {
 						return null
 				}
 				
@@ -97,10 +97,8 @@ class HomeView extends Component {
 										data={this.props.comics.array}
 										keyExtractor={id => `${id}`}
 										renderItem={(item) => {
-												/*console.log("loglog", item.item)
-												console.log("logloglog", this.props.comics[item.item])*/
-												// console.log(this.props.comics)
-											return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails} uri={"/hello"}/>
+												return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails}
+																					 uri={"/hello"}/>
 										}}
 									/>
 							</Container>
