@@ -86,27 +86,46 @@ export const resumeConnectApiEpic = (action$) => action$.pipe(
 export const fetchComicsEpic = (action$, state$) => action$.pipe(
 	ofType(marvelAPIActions.FETCH_COMICS),
 	mergeMap(() => {
-				const state = state$.value
-				const publicKey = state.marvelApiReducers.apiKeys.public
-				const privateKey = state.marvelApiReducers.apiKeys.private
-				const TimeStamp = new Date().getMilliseconds()
-				const hash = md5(`${TimeStamp}${privateKey}${publicKey}`)
-				const url = `${state.marvelApiReducers.baseUrl}/comics`
-				const offset = state.marvelApiReducers.comics.offset
-				return ajax.getJSON(
-						url,
-						{
-								ts: TimeStamp,
-								apikey: publicKey,
-								hash: hash,
-								offset: offset
-						}
-				).pipe(
-					map(response => {
-							fetchComicsSuccess(response)
-					}),
-					catchError(error => of(fetchComicsFailure(error)))
-				)
-		}
-	)
+		const state = state$.value
+		const publicKey = state.marvelApiReducers.apiKeys.public
+		const privateKey = state.marvelApiReducers.apiKeys.private
+		const TimeStamp = new Date().getMilliseconds()
+		const hash = md5(`${TimeStamp}${privateKey}${publicKey}`)
+		const url = `${state.marvelApiReducers.baseUrl}/comics`
+		const offset = state.marvelApiReducers.comics.offset
+		return ajax({
+			method: 'GET',
+			url:generateGetUrl(url, {
+				ts: TimeStamp,
+				apikey: publicKey,
+				hash: hash,
+				offset: offset
+			}),
+			headers: {
+				Accept: '*/*'
+			}
+		}).pipe(
+			map(ajaxRequest => {
+				return fetchComicsSuccess(ajaxRequest.response.data.results)
+			}),
+			catchError(error => {
+				console.log(error)
+				return of(fetchComicsFailure(error))
+			})
+		)
+	})
 )
+
+
+const generateGetUrl = (url, params) => {
+	let paramsExtra = ''
+	let counter = 0
+	for (let key in params) {
+		paramsExtra += (counter === 0) ? '?' : '&'
+		paramsExtra += `${key}=${params[key]}`
+		counter+=1
+	}
+
+	console.log(`${url}${paramsExtra}`)
+	return `${url}${paramsExtra}`
+}
