@@ -30,12 +30,12 @@ export const configureStore = (preloadedState) => {
 
 	//TOOD make it works.
 	// Load saved state.
-	storage.createLoader(engine)()
+	storage.createLoader(engine)(store)
 	.then(() => {
 		console.log("LOADING success")
 	})
-	.catch(()=>{
-		console.log("LOADING fails")
+	.catch((err)=>{
+		console.log("LOADING fails cause of ", err)
 	})
 
 	// Initialize epics
