@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import { StyleSheet} from "react-native"
+import { StyleSheet, FlatList} from "react-native"
 import MarvelCard from "../Components/Card"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
@@ -11,7 +11,9 @@ import MarvelSideBar from "~/Components/SideBar"
 class HomeView extends Component {
 		static propTypes = {
 				onDisconnect: PropTypes.func,
-				onFetchComics: PropTypes.func
+				onFetchComics: PropTypes.func,
+				comics: PropTypes.array,
+				navigation: PropTypes.object
 		}
 		
 		constructor(props) {
@@ -19,7 +21,6 @@ class HomeView extends Component {
 		}
 		
 		componentDidMount() {
-				
 				this.props.onFetchComics()
 		}
 
@@ -35,6 +36,10 @@ class HomeView extends Component {
 		openDrawer = () => {
 			this.drawer._root.open()
 		};
+		
+		goToDetails = (details) => {
+			this.props.navigation.navigate("ComicsDetails", {details: details.item})
+		}
 
 		render() {
 			return (
@@ -52,8 +57,10 @@ class HomeView extends Component {
 					acceptPan={true}
 					>
 					<Container style={homeView.view} id="home">
-						{}
-						<MarvelCard uri={"/hello"}/>
+							<FlatList
+								data={this.props.comics}
+								renderItem={(details) => <MarvelCard details={details} onPress={this.goToDetails} uri={"/hello"}/>}
+							/>
 					</Container>
 				</Drawer>
 				
@@ -61,15 +68,15 @@ class HomeView extends Component {
 		}
 }
 
-const mapStateToProps = (state) => ({
-		state: state
-})
-
 const homeView = StyleSheet.create({
 	view : {
 		backgroundColor : "#800000",
 		height : "100%"
 	}
+})
+
+const mapStateToProps = (state) => ({
+		comics: state.marvelApiReducers.comics.array
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
