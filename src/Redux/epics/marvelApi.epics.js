@@ -94,7 +94,7 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 		const url = `${state.marvelApiReducers.baseUrl}/comics`
 		const offset = state.marvelApiReducers.comics.offset
 		return ajax({
-			method: 'GET',
+			method: "GET",
 			url:generateGetUrl(url, {
 				ts: TimeStamp,
 				apikey: publicKey,
@@ -102,14 +102,13 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 				offset: offset
 			}),
 			headers: {
-				Accept: '*/*'
+				Accept: "*/*"
 			}
 		}).pipe(
 			map(ajaxRequest => {
 				return fetchComicsSuccess(ajaxRequest.response.data.results)
 			}),
 			catchError(error => {
-				console.log(error)
 				return of(fetchComicsFailure(error))
 			})
 		)
@@ -118,14 +117,13 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 
 
 const generateGetUrl = (url, params) => {
-	let paramsExtra = ''
+	let paramsExtra = ""
 	let counter = 0
 	for (let key in params) {
-		paramsExtra += (counter === 0) ? '?' : '&'
+		paramsExtra += (counter === 0) ? "?" : "&"
 		paramsExtra += `${key}=${params[key]}`
 		counter+=1
 	}
 
-	console.log(`${url}${paramsExtra}`)
 	return `${url}${paramsExtra}`
 }
