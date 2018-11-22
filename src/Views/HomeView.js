@@ -35,10 +35,6 @@ class HomeView extends Component {
 		openDrawer = () => {
 			this.drawer._root.open()
 		};
-		
-		logSomething = () => {
-				console.log("logged man")
-		}
 
 		render() {
 			return (
@@ -47,7 +43,7 @@ class HomeView extends Component {
 					type='displace'
 					content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation} />}
 					onClose={() => this.closeDrawer()}
-					onOpen={() => this.logSomething()}
+					onOpen={() => this.openDrawer()}
 					side="left"
 					openDrawerOffset={0.2}
 					closedDrawerOffset={0}

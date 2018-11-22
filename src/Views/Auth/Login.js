@@ -16,7 +16,7 @@ static propTypes = {
 
 	render() {
 		return (
-			<Container style={{backgroundColor : '#800000'}}>
+			<Container style={{backgroundColor : "#800000"}}>
 				<Content padder contentContainerStyle={{flexDirection: "column", justifyContent:"space-around", height: "100%"}}>
 					<View>
 						<Header transparent>
@@ -58,7 +58,6 @@ const mapDispatchToProps = (dispatch, props) => ({
 const mapStateToProps = (state, props) => {
 	return {}
 }
-
 
 export default connect(
 	mapStateToProps,
