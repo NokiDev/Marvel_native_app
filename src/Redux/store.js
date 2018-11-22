@@ -28,10 +28,15 @@ export const configureStore = (preloadedState) => {
 	const composedEnhancers = compose(...enhancers)
 	const store = createStore(storage.reducer(rootReducer), preloadedState, composedEnhancers)
 
+	//TOOD make it works.
 	// Load saved state.
 	storage.createLoader(engine)()
-		.then()
-		.catch()
+	.then(() => {
+		console.log("LOADING success")
+	})
+	.catch(()=>{
+		console.log("LOADING fails")
+	})
 
 	// Initialize epics
 	epicMiddleware.run(rootEpic)
