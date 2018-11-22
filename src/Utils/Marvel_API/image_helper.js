@@ -27,31 +27,31 @@
 	* */
 
 export const imageFormat = Object.freeze({
-		portrait_small: Symbol("portrait_small"),
-		portrait_medium: Symbol("portrait_medium"),
-		portrait_xlarge: Symbol("portrait_xlarge"),
-		portrait_fantastic: Symbol("portrait_fantastic"),
-		portrait_uncanny: Symbol("portrait_uncanny"),
-		portrait_incredible: Symbol("portrait_incredible"),
+		portrait_small: ("portrait_small"),
+		portrait_medium: ("portrait_medium"),
+		portrait_xlarge: ("portrait_xlarge"),
+		portrait_fantastic: ("portrait_fantastic"),
+		portrait_uncanny: ("portrait_uncanny"),
+		portrait_incredible: ("portrait_incredible"),
 
-		standard_small: Symbol("standard_small"),
-		standard_medium: Symbol("standard_medium"),
-		standard_large: Symbol("standard_large"),
-		standard_xlarge: Symbol("standard_xlarge"),
-		standard_fantastic: Symbol("standard_fantastic"),
-		standard_amazing: Symbol("standard_amazing"),
+		standard_small: ("standard_small"),
+		standard_medium: ("standard_medium"),
+		standard_large: ("standard_large"),
+		standard_xlarge: ("standard_xlarge"),
+		standard_fantastic: ("standard_fantastic"),
+		standard_amazing: ("standard_amazing"),
 
-		landscape_small: Symbol("landscape_small"),
-		landscape_medium: Symbol("landscape_medium"),
-		landscape_large: Symbol("landscape_large"),
-		landscape_xlarge: Symbol("landscape_xlarge"),
-		landscape_amazing: Symbol("landscape_amazing"),
-		landscape_incredible: Symbol("landscape_incredible"),
+		landscape_small: ("landscape_small"),
+		landscape_medium: ("landscape_medium"),
+		landscape_large: ("landscape_large"),
+		landscape_xlarge: ("landscape_xlarge"),
+		landscape_amazing: ("landscape_amazing"),
+		landscape_incredible: ("landscape_incredible"),
 
-		full_size: Symbol("full_size"),
+		full_size: ("full_size"),
 })
 
 // Construct image source path for Marvel API, See https://developer.marvel.com/documentation/images
 export const build_image_link = (path, extension, imageFormat) => {
-	return `${path}/${imageFormat}.${extension}`
+			return `${path}/${imageFormat}.${extension}`
 }
