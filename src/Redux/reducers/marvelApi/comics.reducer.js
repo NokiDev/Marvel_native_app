@@ -10,7 +10,7 @@ const initialState = {
 }
 
 const comicsReducers = (state = initialState, action) => {
-	console.log(state)
+	
 	switch (action.type) {
 		case comicsActions.FETCH_COMICS:
 			return {
@@ -25,7 +25,6 @@ const comicsReducers = (state = initialState, action) => {
 				offset: action.payload.length
 			}
 		case comicsActions.FETCH_COMICS_FAILURE:
-			console.log("payload", action.payload)
 			return {
 				...state,
 				loading: false,

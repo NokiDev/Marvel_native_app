@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import {Image, TouchableOpacity} from "react-native"
-import {Body, Card, CardItem, Text} from "native-base"
+import {Image, StyleSheet, TouchableOpacity, View} from "react-native"
+import {build_image_link, imageFormat} from "~/Utils/Marvel_API/image_helper"
 import PropTypes from "prop-types"
 
 export default class MarvelCard extends Component {
@@ -12,21 +12,26 @@ export default class MarvelCard extends Component {
 				details: PropTypes.object
 		}
 		
+		constructor(props) {
+				super(props)
+		}
+		
 		render() {
 				return (
-					<Card>
+					<View style={styles.card}>
 							<TouchableOpacity onPress={() => this.props.onPress(this.props.details)}>
-									<CardItem>
-											<Body>
-											<Text>NativeBase</Text>
-											<Text note>GeekyAnts</Text>
-											</Body>
-									</CardItem>
-									<CardItem cardBody>
-											<Image source={{uri: this.props.uri}} style={{height: 200, width: null, flex: 1}}/>
-									</CardItem>
+									<Image
+										source={{uri: build_image_link(this.props.details.item.thumbnail.path, this.props.details.item.thumbnail.extension, imageFormat.portrait_uncanny)}}
+										style={{height: "100%", width: "100%"}}/>
 							</TouchableOpacity>
-					</Card>
+					</View>
 				)
 		}
 }
+
+const styles = StyleSheet.create({
+		card: {
+				height: 450,
+				margin: 10
+		}
+})
