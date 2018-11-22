@@ -5,7 +5,6 @@ import {generateGetUrlWithParams} from '~/Utils/requestHelper'
 export const AjaxGetRequestFactory = (url, privateKey, publicKey, additionalParams) => {
 	const TimeStamp = new Date().getMilliseconds()
 	const hash = md5(`${TimeStamp}${privateKey}${publicKey}`)
-	console.log("log", additionalParams.offset)
 	return ajax({
 		method: 'GET',
 		url:generateGetUrlWithParams(url, {

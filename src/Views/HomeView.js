@@ -47,7 +47,7 @@ class HomeView extends Component {
 		};
 		
 		goToDetails = (details) => {
-				this.props.navigation.navigate("ComicsDetails", {details: details.item})
+				this.props.navigation.navigate("ComicsDetails", {details: details})
 		}
 		
 		onViewableItemsChanged = ({viewableItems, changed}) => {
@@ -69,6 +69,7 @@ class HomeView extends Component {
 		}
 		
 		render() {
+				let comics = this.props.comics
 				return (
 					<Drawer
 						ref={(ref) => {
@@ -93,9 +94,14 @@ class HomeView extends Component {
 										viewabilityConfig={this.viewabilityConfig}
 										onViewableItemsChanged={this.onViewableItemsChanged}
 										style={homeView.flatList}
-										data={this.props.comics}
-										keyExtractor={item => `${item.id}`}
-										renderItem={(details) => <MarvelCard details={details} onPress={this.goToDetails} uri={"/hello"}/>}
+										data={this.props.comics.array}
+										keyExtractor={id => `${id}`}
+										renderItem={(item) => {
+												/*console.log("loglog", item.item)
+												console.log("logloglog", this.props.comics[item.item])*/
+												// console.log(this.props.comics)
+											return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails} uri={"/hello"}/>
+										}}
 									/>
 							</Container>
 					</Drawer>
@@ -115,8 +121,7 @@ const homeView = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => ({
-		comics: state.marvel.comics.array,
-		comicsLoading: state.marvel.comics.isLoading
+		comics: state.marvel.comics
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

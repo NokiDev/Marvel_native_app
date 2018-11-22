@@ -21,7 +21,7 @@ export default class MarvelCard extends Component {
 					<View style={styles.card}>
 							<TouchableOpacity onPress={() => this.props.onPress(this.props.details)}>
 									<Image
-										source={{uri: build_image_link(this.props.details.item.thumbnail.path, this.props.details.item.thumbnail.extension, imageFormat.portrait_uncanny)}}
+										source={{uri: build_image_link(this.props.details.thumbnail.path, this.props.details.thumbnail.extension, imageFormat.portrait_uncanny)}}
 										style={{height: "100%", width: "100%"}}/>
 							</TouchableOpacity>
 					</View>
