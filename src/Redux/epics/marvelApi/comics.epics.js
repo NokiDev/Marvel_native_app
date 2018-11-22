@@ -2,9 +2,9 @@ import {ofType} from "redux-observable"
 import {catchError, map, mergeMap} from "rxjs/operators"
 import {of} from "rxjs"
 
-import {comicsActions, fetchComicsFailure, fetchComicsSuccess} from '~/Redux/actions/marvelApi/comics.actions'
+import {comicsActions, fetchComicsFailure, fetchComicsSuccess} from "~/Redux/actions/marvelApi/comics.actions"
 
-import {AjaxGetRequestFactory} from '~/Utils/Marvel_API/request_helper'
+import {AjaxGetRequestFactory} from "~/Utils/Marvel_API/request_helper"
 
 export const fetchComicsEpic = (action$, state$) => action$.pipe(
 	ofType(comicsActions.FETCH_COMICS),

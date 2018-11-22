@@ -59,9 +59,14 @@ class HomeView extends Component {
 						})
 		}
 		
-		/*renderListFooter = () => {
-				return(<Spinner color={"white"}/>)
-		}*/
+		renderListFooter = () => {
+				if(this.props.comics.isLoading === true){
+						return(<Spinner color={"white"}/>)
+				}else{
+						return null
+				}
+				
+		}
 		
 		render() {
 				return (
@@ -83,12 +88,13 @@ class HomeView extends Component {
 							<Container style={homeView.view} id="home">
 									<FlatList
 										ListFooterComponent={this.renderListFooter}
-										onEndReached={() => console.log('reached end')}
+										onEndReachedThreshold={2}
+										onEndReached={this.props.onFetchComics}
 										viewabilityConfig={this.viewabilityConfig}
 										onViewableItemsChanged={this.onViewableItemsChanged}
 										style={homeView.flatList}
 										data={this.props.comics}
-										keyExtractor={item => item.id.toString()}
+										keyExtractor={item => `${item.id}`}
 										renderItem={(details) => <MarvelCard details={details} onPress={this.goToDetails} uri={"/hello"}/>}
 									/>
 							</Container>
