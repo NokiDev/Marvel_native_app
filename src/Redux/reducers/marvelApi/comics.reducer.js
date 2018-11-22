@@ -29,7 +29,7 @@ const comicsReducers = (state = initialState, action) => {
 								...state,
 								loading: false,
 								array: [...state.array, ...idArray],
-							  ...dataArray,
+								...dataArray,
 								offset: state.offset + action.payload.length
 						}
 				}

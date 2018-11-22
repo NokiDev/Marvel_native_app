@@ -17,12 +17,18 @@ const authReducers = (state = initialState, action) => {
         case authActions.CONNECT_API_DONE :
             return {
                 ...state,
-                apiKeys: action.payload
+                apiKeys: {
+                    private: action.payload.private,
+                    public: action.payload.public
+                }
             }
         case authActions.DISCONNECT_API_DONE :
             return {
                 ...state,
-                apiKeys: action.payload
+                apiKeys: {
+                    private: '',
+                    public: ''
+                }
             }
         default:
             return state

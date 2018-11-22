@@ -21,16 +21,18 @@ class HomeView extends Component {
 		constructor(props) {
 				super(props)
 				this.viewabilityConfig = {
-						viewAreaCoveragePercentThreshold: 60 // sets the threshold so that we can detect which comic is take more space
+					viewAreaCoveragePercentThreshold: 60 // sets the threshold so that we can detect which comic is take more space
 				}
 				this.state = {
-						comicTitle: "",
-						showToast: false
+					comicTitle: "",
+					showToast: false
 				}
 		}
 		
 		componentDidMount() {
+			if(this.props.comics.array.length == 0) {
 				this.props.onFetchComics()
+			}
 		}
 		
 		componentWillUnmount() {
@@ -98,7 +100,7 @@ class HomeView extends Component {
 										keyExtractor={id => `${id}`}
 										renderItem={(item) => {
 												return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails}
-																					 uri={"/hello"}/>
+																					uri={"/hello"}/>
 										}}
 									/>
 							</Container>

@@ -1,7 +1,12 @@
 import React, {Component} from "react"
 import PropTypes from "prop-types"
+import {connect } from 'react-redux'
 
-import {View} from "react-native"
+import {Text, Image, View} from "react-native"
+import { fetchCharacterById } from "~/Redux/actions/marvelApi/characters.actions";
+
+import {getIdFromURI} from "~/Utils/Marvel_API/request_helper"
+import {build_image_link, imageFormat} from "~/Utils/Marvel_API/image_helper"
 
 class ComicsDetails extends Component {
 		static propTypes = {
@@ -10,25 +15,67 @@ class ComicsDetails extends Component {
 		
 		constructor(props) {
 				super(props)
+				console.log("props", this.props)
 				this.state = {
 						comic: this.props.navigation.getParam("details")
 				}
 		}
 		
 		componentDidMount() {
+			console.log("details", this.state.comic)
+			this.props.onLoad(this.state.comic)
 		}
 		
 		componentWillUnmount() {
+
 		}
 		
 		render() {
 				return (
 					<View>
-					
+						<Image
+							source={{uri: build_image_link(this.state.comic.thumbnail.path, this.state.comic.extension, imageFormat.landscape_large)}}
+							style={{height: "100%", width: "100%"}}/>
+						<Text>{this.state.comic.title}</Text>
 					</View>
 				)
 		}
 }
 
 
-export default ComicsDetails
+const mapStateToProps = (state) => ({
+	characters: state.characters,
+	series: state.series,
+	eventS: state.events,
+	stories:state.stories,
+	creator:state.creators
+})
+
+const mapDispatchToProps = (dispatch, props) =>({
+	onLoad: (comic) => {
+		for(let index in comic.characters.items){
+			dispatch(fetchCharacterById(getIdFromURI(comic.characters.items[index].resourceURI)))
+		}
+		for(let index in comic.stories.items){
+			//this.props.loadChars()
+			//dispatch(fetchCharacterById(UrI))
+		}
+		for(let index in comic.series.items){
+			//this.props.loadChars()
+			//dispatch(fetchCharacterById(UrI))
+		}
+		for(let index in comic.events.items){
+			//this.props.loadChars()
+			//dispatch(fetchCharacterById(UrI))
+		}
+		for(let index in comic.creators.items){
+			//this.props.loadChars()
+			//dispatch(fetchCharacterById(UrI))
+		}	
+	}
+})
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ComicsDetails)

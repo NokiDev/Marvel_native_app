@@ -18,3 +18,8 @@ export const AjaxGetRequestFactory = (url, privateKey, publicKey, additionalPara
 		}
 	})
 }
+
+export const getIdFromURI = (uri) => {
+	console.log(uri)
+	return uri.split("/").pop();
+}
