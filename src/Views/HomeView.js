@@ -59,11 +59,11 @@ class HomeView extends Component {
 					<Container style={homeView.view} id="home">
 							<FlatList
 								data={this.props.comics}
+								keyExtractor={item => item.id.toString()}
 								renderItem={(details) => <MarvelCard details={details} onPress={this.goToDetails} uri={"/hello"}/>}
 							/>
 					</Container>
 				</Drawer>
-				
 			)
 		}
 }
