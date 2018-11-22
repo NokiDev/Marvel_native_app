@@ -6,9 +6,9 @@ import {
 		marvelAPIActions
 } from "../actions/marvelApi.actions"
 import {ofType} from "redux-observable"
-import {map, mergeMap, catchError} from "rxjs/operators"
+import {catchError, map, mergeMap} from "rxjs/operators"
 import {from, of} from "rxjs"
-import { AjaxGetRequestFactory } from '~/Utils/Marvel_API/request_helper'
+import {AjaxGetRequestFactory} from "~/Utils/Marvel_API/request_helper"
 // STORAGE.
 import {AsyncStorage} from "react-native"
 
@@ -98,7 +98,6 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 				return fetchComicsSuccess(ajaxRequest.response.data.results)
 			}),
 			catchError(error => {
-				console.log(error)
 				return of(fetchComicsFailure(error))
 			})
 		)
