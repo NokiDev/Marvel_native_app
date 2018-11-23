@@ -74,7 +74,7 @@ class HomeView extends Component {
 								this.drawer = ref
 						}}
 						type='displace'
-						content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation}/>}
+						content={<MarvelSideBar navigation={this.props.navigation}/>}
 						onClose={() => this.closeDrawer()}
 						onOpen={() => this.openDrawer()}
 						side="left"

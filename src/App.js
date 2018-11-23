@@ -14,7 +14,6 @@ import {configureStore} from "~/Redux/store"
 
 const reduxStore = configureStore({})
 
-
 export default class App extends Component {
 		render() {
 				return (
