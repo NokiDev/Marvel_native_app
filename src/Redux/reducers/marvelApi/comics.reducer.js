@@ -12,7 +12,7 @@ const comicsReducers = (state = initialState, action) => {
 				case comicsActions.FETCH_COMICS:
 						return {
 								...state,
-								loading: true
+								isLoading: true
 						}
 				case comicsActions.FETCH_COMICS_SUCCESS: {
 						const idArray = action.payload.map((item) => item.id).filter((id) => state.array.includes(id) === false)
@@ -27,7 +27,7 @@ const comicsReducers = (state = initialState, action) => {
 						})
 						return {
 								...state,
-								loading: false,
+								isLoading: false,
 								array: [...state.array, ...idArray],
 							  ...dataArray,
 								offset: state.offset + action.payload.length
@@ -36,7 +36,7 @@ const comicsReducers = (state = initialState, action) => {
 				case comicsActions.FETCH_COMICS_FAILURE:
 						return {
 								...state,
-								loading: false,
+								isLoading: false,
 								array: []
 						}
 				default:

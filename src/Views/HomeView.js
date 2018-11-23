@@ -6,8 +6,9 @@ import {connect} from "react-redux"
 import {disconnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 import {fetchComics} from "~/Redux/actions/marvelApi/comics.actions"
 
-import {Container, Drawer, Toast} from "native-base"
+import {Container, Drawer, Root, Spinner} from "native-base"
 import MarvelSideBar from "~/Components/SideBar"
+import CustomToast from "~/Components/CustomToast"
 
 class HomeView extends Component {
 		static propTypes = {
@@ -42,7 +43,7 @@ class HomeView extends Component {
 						this.drawer._root.close()
 				}
 		};
-		openDrawer = () => {
+		openDrawer = async () => {
 				this.drawer._root.open()
 		};
 		
@@ -51,58 +52,56 @@ class HomeView extends Component {
 		}
 		
 		onViewableItemsChanged = ({viewableItems, changed}) => {
-				if (viewableItems.length !== 0)
-						Toast.show({
-								text: this.props.comics[viewableItems[0].item].title,
-								duration: 0,
-								position: "top"
-						})
+				if (viewableItems.length !== 0){
+						this.setState({comicTitle: this.props.comics[viewableItems[0].item].title})
+				}
 		}
 		
 		renderListFooter = () => {
-				if (this.props.comics.isLoading === true) {
+				if (this.props.comics.isLoading) {
 						return (<Spinner color={"white"}/>)
 				} else {
 						return null
 				}
-				
 		}
 		
 		render() {
-				let comics = this.props.comics
 				return (
-					<Drawer
-						ref={(ref) => {
-								this.drawer = ref
-						}}
-						type='displace'
-						content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation}/>}
-						onClose={() => this.closeDrawer()}
-						onOpen={() => this.openDrawer()}
-						side="left"
-						openDrawerOffset={0.2}
-						closedDrawerOffset={0}
-						panOpenMask={.3}
-						panCloseMask={.3}
-						acceptPan={true}
-					>
-							<Container style={homeView.view} id="home">
-									<FlatList
-										ListFooterComponent={this.renderListFooter}
-										onEndReachedThreshold={2}
-										onEndReached={this.props.onFetchComics}
-										viewabilityConfig={this.viewabilityConfig}
-										onViewableItemsChanged={this.onViewableItemsChanged}
-										style={homeView.flatList}
-										data={this.props.comics.array}
-										keyExtractor={id => `${id}`}
-										renderItem={(item) => {
-												return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails}
-																					 uri={"/hello"}/>
-										}}
-									/>
-							</Container>
-					</Drawer>
+					<Root>
+							<Drawer
+								ref={(ref) => {
+										this.drawer = ref
+								}}
+								type='displace'
+								content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation}/>}
+								onClose={() => this.closeDrawer()}
+								onOpen={() => this.openDrawer()}
+								side="left"
+								openDrawerOffset={0.2}
+								closedDrawerOffset={0}
+								panOpenMask={.3}
+								panCloseMask={.3}
+								acceptPan={true}
+							>
+									<Container style={homeView.view} id="home">
+											<CustomToast text={this.state.comicTitle} backgroundColor={"black"} textColor={"white"} />
+											<FlatList
+												ListFooterComponent={this.renderListFooter}
+												onEndReachedThreshold={2}
+												onEndReached={this.props.onFetchComics}
+												viewabilityConfig={this.viewabilityConfig}
+												onViewableItemsChanged={this.onViewableItemsChanged}
+												style={homeView.flatList}
+												data={this.props.comics.array}
+												keyExtractor={id => `${id}`}
+												renderItem={(item) => {
+														return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails}
+																							 uri={"/hello"}/>
+												}}
+											/>
+									</Container>
+							</Drawer>
+					</Root>
 				)
 		}
 }
