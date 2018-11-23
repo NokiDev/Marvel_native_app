@@ -1,7 +1,9 @@
 import {createStackNavigator} from "react-navigation"
+import React from "react"
 
 import HomeView from "~/Views/HomeView"
 import ComicsDetails from "~/Views/ComicsDetails"
+import CustomMarvelHeader from "~/Components/CustomMarvelHeader"
 
 const RootStack = createStackNavigator({
 			Home: {
@@ -13,9 +15,13 @@ const RootStack = createStackNavigator({
 	},
 	{
 			initialRouteName: "Home",
-			headerMode: "none",
 			navigationOptions: {
-					headerVisible: false,
+					headerBackground: <CustomMarvelHeader/>,
+					headerStyle: {
+							backgroundColor: "transparent",
+							borderBottomWidth: 0
+					},
+					headerTransparent: false
 			}
 	}
 )

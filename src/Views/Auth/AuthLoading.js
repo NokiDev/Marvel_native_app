@@ -1,14 +1,10 @@
 import React from "react"
-import {
-	ActivityIndicator,
-	StatusBar
-} from "react-native"
+import {ActivityIndicator, StatusBar} from "react-native"
 import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import { Container } from "native-base"
+import {connect} from "react-redux"
+import {Container} from "native-base"
 // TODO make a global reinit state.
-import { resumeConnectApi } from '~/Redux/actions/marvelApi/auth.actions'
-
+import {resumeConnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 
 
 class AuthLoading extends React.Component {
@@ -20,7 +16,6 @@ class AuthLoading extends React.Component {
 
 	constructor(props) {
 		super(props)
-		
 	}
 
 	componentDidMount() {
