@@ -14,11 +14,15 @@ export default class CustomToast extends Component {
 		}
 		
 		render(){
-				return(
-					<View style={{backgroundColor: this.props.backgroundColor,...styles.view}}>
-							<Text style={{color: this.props.textColor}}>{this.props.text}</Text>
-					</View>
-				)
+				if(this.props.show){
+						return(
+							<View style={{backgroundColor: this.props.backgroundColor,...styles.view}}>
+									<Text style={{color: this.props.textColor}}>{this.props.text}</Text>
+							</View>
+						)
+				}else{
+						return null
+				}
 		}
 }
 
