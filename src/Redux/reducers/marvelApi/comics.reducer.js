@@ -7,7 +7,7 @@ const initialState = {
 		// Adds up comics object by ids
 }
 
-const comicsReducers = (state = initialState, action) => {
+const comicsReducers = (state = initialState, action = {}) => {
 		switch (action.type) {
 				case comicsActions.FETCH_COMICS:
 						return {
@@ -19,8 +19,9 @@ const comicsReducers = (state = initialState, action) => {
 						const dataArray = action.payload.reduce((map, object, index) => {
 								if(index === 1) {
 										let tmp = map
-										map = {}
-										map[tmp.id]=tmp
+									map = {
+										[tmp.id]: tmp
+									}
 								}
 								map[object.id] = object
 								return map

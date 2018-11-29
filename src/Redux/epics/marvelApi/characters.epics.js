@@ -1,5 +1,9 @@
-import { fetchCharacterByIdSuccess, fetchCharacterByIdFailure, characterActions } from "~/Redux/actions/marvelApi/characters.actions";
-import { ofType } from "redux-observable";
+import {
+	characterActions,
+	fetchCharacterByIdFailure,
+	fetchCharacterByIdSuccess
+} from "~/Redux/actions/marvelApi/characters.actions"
+import {ofType} from "redux-observable"
 import {catchError, map, mergeMap} from "rxjs/operators"
 import {of} from "rxjs"
 
@@ -14,9 +18,7 @@ export const fetchCharacterByIdEpic = (action$, state$)=> action$.pipe(
                 `${state$.value.marvel.auth.baseUrl}/characters/${action.payload.id}`,
                 state$.value.marvel.auth.apiKeys.private,
                 state$.value.marvel.auth.apiKeys.public,
-                {
-                    
-                }
+				{}
             ).pipe(
                 map(ajaxRequest => {
                     return fetchCharacterByIdSuccess(ajaxRequest.response.data.results)
@@ -27,7 +29,7 @@ export const fetchCharacterByIdEpic = (action$, state$)=> action$.pipe(
             )
         }
         else {// No op, we won't fetch the character since already in the state.
-            return of({type: 'NO_OP', payload:{}})
+			return of({type: "NO_OP", payload: {}})
         }
     })
 )

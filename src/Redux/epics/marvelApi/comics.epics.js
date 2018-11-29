@@ -15,7 +15,8 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 			state.marvel.auth.apiKeys.private,
 			state.marvel.auth.apiKeys.public,
 			{
-				offset: state.marvel.comics.offset
+				offset: state.marvel.comics.offset,
+				orderBy: "focDate"
 			}
 		).pipe(
 			map(ajaxRequest => {
