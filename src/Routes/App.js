@@ -16,7 +16,7 @@ const RootStack = createStackNavigator({
 	{
 			initialRouteName: "Home",
 			navigationOptions: {
-					headerBackground: <CustomMarvelHeader/>,
+				headerBackground: <CustomMarvelHeader homePage="http://marvel.com"/>,
 					headerStyle: {
 							backgroundColor: "transparent",
 							borderBottomWidth: 0
