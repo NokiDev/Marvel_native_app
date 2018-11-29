@@ -12,51 +12,56 @@ import BackgroundMarvelImage from "~/Components/BackgroundMarvelImage"
 import ComicCard from "~/Components/ComicCard"
 
 class ComicsDetails extends Component {
-	static propTypes = {
-		navigation: PropTypes.object
-	}
-
-	constructor(props) {
-		super(props)
-
-		const comic = this.props.navigation.getParam("details")
-		this.state = {
-			comic: {
-				...comic,
-				description: comic.description ? comic.description.replace(/<br>/gi, "\n") : comic.description
-			}
+		static propTypes = {
+				navigation: PropTypes.object,
+				characters: PropTypes.array
 		}
-	}
-
-	componentDidMount() {
-		console.log("details", this.state.comic)
-		console.log("characters", this.state.characters)
-		this.props.onLoad(this.state.comic)
-	}
-
-	render() {
-		let comic = this.state.comic
-		return (
-			<View style={{width: "100%", height: "100%"}}>
-				<BackgroundMarvelImage/>
-				<ComicCard thumbnailUri={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-						   issueNumber={comic.issueNumber} title={comic.title} resume={comic.description}/>
-			</View>
-		)
-	}
+		
+		constructor(props) {
+				super(props)
+				
+				const comic = this.props.navigation.getParam("details")
+				this.state = {
+						comic: {
+								...comic,
+								description: comic.description ? comic.description.replace(/<br>/gi, "\n") : comic.description
+						}
+				}
+		}
+		
+		componentDidMount() {
+				this.props.onLoad(this.state.comic)
+		}
+		
+		render() {
+				let {comic} = this.state
+				let {characters} = this.props
+				return (
+					<View style={{width: "100%", height: "100%"}}>
+							<BackgroundMarvelImage/>
+							<ComicCard thumbnailUri={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+												 issueNumber={comic.issueNumber} title={comic.title} text={comic.description} characters={characters} />
+					</View>
+				)
+		}
 }
 
-ComicsDetails.propTypes = {
-	onLoad: PropTypes.func
+const processCharacters = (characters) => {
+		let charactersProcessed = []
+		for (let i = 0; i < characters.array.length; i++){
+				charactersProcessed.push(characters[characters.array[i]])
+		}
+		return charactersProcessed
 }
 
-const mapStateToProps = (state) => ({
-	characters: state.characters,
-	series: state.series,
-	eventS: state.events,
-	stories: state.stories,
-	creator: state.creators
-})
+const mapStateToProps = (state) => {
+		return ({
+		characters: processCharacters(state.marvel.characters),
+		series: state.marvel.series,
+		eventS: state.marvel.events,
+		stories: state.marvel.stories,
+		creator: state.marvel.creators
+})}
 
 const mapDispatchToProps = (dispatch, props) => ({
 	onLoad: (comic) => {

@@ -38,10 +38,8 @@ export const configureStore = (preloadedState) => {
 	// Load saved state.
 	storage.createLoader(engine)(store)
 		.then((state) => {
-			console.log("LOADING success", state)
 		})
 		.catch((err) => {
-			console.log("LOADING fails cause of ", err)
 		})
 
 	// Initialize epics
