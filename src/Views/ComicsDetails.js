@@ -12,81 +12,64 @@ import BackgroundMarvelImage from "~/Components/BackgroundMarvelImage"
 import ComicCard from "~/Components/ComicCard"
 
 class ComicsDetails extends Component {
-		static propTypes = {
-				navigation: PropTypes.object,
-				characters: PropTypes.array
-		}
+	static propTypes = {
+		navigation: PropTypes.object,
+		characters: PropTypes.array
+	}
 
-		constructor(props) {
-				super(props)
+	constructor(props) {
+		super(props)
 
-			const comic = this.props.navigation.getParam("details")
-				this.state = {
-						comic: {
-								...comic,
-								description: comic.description ? comic.description.replace(/<br>/gi, "\n") : comic.description
-						}
-				}
+		const comic = this.props.navigation.getParam("details")
+		this.state = {
+			comic: {
+				...comic,
+				description: comic.description ? comic.description.replace(/<br>/gi, "\n") : comic.description
+			}
 		}
+	}
 
 	componentDidMount() {
-				this.props.onLoad(this.state.comic)
-		}
+		this.props.onLoad(this.state.comic)
+	}
 
 	render() {
-				let {comic} = this.state
-				let {characters} = this.props
-				const dataArray = [
-						{ title: "First Element", content: "Lorem ipsum dolor sit amet" },
-						{ title: "Second Element", content: "Lorem ipsum dolor sit amet" },
-						{ title: "Third Element", content: "Lorem ipsum dolor sit amet" }
-				];
-				return (
-					<View style={{width: "100%", height: "100%"}}>
-							<BackgroundMarvelImage/>
-							<ComicCard thumbnailUri={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-												 issueNumber={comic.issueNumber} title={comic.title} text={comic.description} characters={dataArray} />
-					</View>
-				)
-		}
+		let {comic} = this.state
+		let {characters} = this.props
+		return (
+			<View style={{width: "100%", height: "100%"}}>
+				<BackgroundMarvelImage/>
+				<ComicCard thumbnailUri={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+						   issueNumber={comic.issueNumber} title={comic.title} text={comic.description}
+						   characters={characters}/>
+			</View>
+		)
+	}
 }
 
-const processCharacters = (characters, props) => {
-	const comic = props.navigation.getParam("details")
-
-	console.log(comic)
-	return comic.characters.items.map(item => characters[getIdFromURI(item.resourceURI)])
+ComicsDetails.propTypes = {
+	onLoad: PropTypes.func
 }
 
-const processSeries = (series, props) => {
-	const comic = props.navigation.getParam("details")
-	return series[comic.series.resourceURI]
-}
 
-const processStories = (stories, props) => {
+const processArray = (array, props, objectKey) => {
 	const comic = props.navigation.getParam("details")
-	return comic.stories.items.map(item => stories[getIdFromURI(item.resourceURI)])
+	return comic[objectKey].items.map(item => array[getIdFromURI(item.resourceURI)]).filter(arrayItem => arrayItem !== undefined)
 }
-
-const processEvents = (events, props) => {
+const processItem = (array, props) => {
 	const comic = props.navigation.getParam("details")
-	return comic.events.items.map(item => events[getIdFromURI(item.resourceURI)])
-}
-
-const processCreators = (creators, props) => {
-	const comic = props.navigation.getParam("details")
-	return comic.creators.items.map(item => creators[getIdFromURI(item.resourceURI)])
+	return array[comic.series.resourceURI]
 }
 
 const mapStateToProps = (state, props) => ({
-	characters: processCharacters(state.marvel.characters, props),
-	series: processSeries(state.marvel.series, props),
-	events: processEvents(state.marvel.events, props),
-	stories: processStories(state.marvel.stories, props),
-	creator: processCreators(state.marvel.creators, props)
+	characters: processArray(state.marvel.characters, props, "characters"),
+	series: processItem(state.marvel.series, props),
+	events: processArray(state.marvel.events, props, "events"),
+	stories: processArray(state.marvel.stories, props, "stories"),
+	creator: processArray(state.marvel.creators, props, "creators")
 })
 
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch) => ({
 	onLoad: (comic) => {
 		for (let index in comic.characters.items) {
 			dispatch(fetchCharacterById(getIdFromURI(comic.characters.items[index].resourceURI)))
