@@ -36,11 +36,16 @@ class ComicsDetails extends Component {
 	render() {
 				let {comic} = this.state
 				let {characters} = this.props
+				const dataArray = [
+						{ title: "First Element", content: "Lorem ipsum dolor sit amet" },
+						{ title: "Second Element", content: "Lorem ipsum dolor sit amet" },
+						{ title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+				];
 				return (
 					<View style={{width: "100%", height: "100%"}}>
 							<BackgroundMarvelImage/>
 							<ComicCard thumbnailUri={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-												 issueNumber={comic.issueNumber} title={comic.title} text={comic.description} characters={characters} />
+												 issueNumber={comic.issueNumber} title={comic.title} text={comic.description} characters={dataArray} />
 					</View>
 				)
 		}
