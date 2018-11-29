@@ -20,7 +20,7 @@ class HomeView extends Component {
 				navigation: PropTypes.object,
 				comicsLoading: PropTypes.bool
 		}
-		
+
 		constructor(props) {
 				super(props)
 				this.viewabilityConfig = {
@@ -31,18 +31,18 @@ class HomeView extends Component {
 					showToast: false
 				}
 		}
-		
-		componentDidMount() {
-			if(this.props.comics.array.length == 0) {
+
+	componentDidMount() {
+		if (this.props.comics.array.length === 0) {
 				this.props.onFetchComics()
 			}
 		}
-		
-		componentWillUnmount() {
+
+	componentWillUnmount() {
 				this.closeDrawer()
 		}
-		
-		closeDrawer = () => {
+
+	closeDrawer = () => {
 				if (this.drawer) {
 						this.drawer._root.close()
 				}
@@ -50,26 +50,26 @@ class HomeView extends Component {
 		openDrawer = async () => {
 				this.drawer._root.open()
 		};
-		
-		goToDetails = (details) => {
+
+	goToDetails = (details) => {
 				this.props.navigation.navigate("ComicsDetails", {details: details})
 		}
-		
-		onViewableItemsChanged = ({viewableItems, changed}) => {
+
+	onViewableItemsChanged = ({viewableItems, changed}) => {
 				if (viewableItems.length !== 0) {
 						this.setState({comicTitle: this.props.comics[viewableItems[0].item].title})
 				}
 		}
-		
-		renderListFooter = () => {
+
+	renderListFooter = () => {
 				if (this.props.comics.isLoading) {
 						return (<Spinner color={"white"}/>)
 				} else {
 						return null
 				}
 		}
-		
-		render() {
+
+	render() {
 				return (
 					<Drawer
 						ref={(ref) => {

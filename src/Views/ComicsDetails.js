@@ -1,36 +1,43 @@
 import React, {Component} from "react"
 import PropTypes from "prop-types"
-import {connect } from 'react-redux'
+import {connect} from "react-redux"
 
-import {Text, Image, View} from "react-native"
-import { fetchCharacterById } from "~/Redux/actions/marvelApi/characters.actions";
+import {View} from "react-native"
+import {fetchCharacterById} from "~/Redux/actions/marvelApi/characters.actions"
 
 import {getIdFromURI} from "~/Utils/Marvel_API/request_helper"
 import {build_image_link, imageFormat} from "~/Utils/Marvel_API/image_helper"
+import Resume from "../Components/Resume"
 
 class ComicsDetails extends Component {
 		static propTypes = {
 				navigation: PropTypes.object
 		}
-		
+
 		constructor(props) {
 				super(props)
-				console.log("props", this.props)
+
+			const comic = this.props.navigation.getParam("details")
 				this.state = {
-						comic: this.props.navigation.getParam("details")
+
+					comic: {
+						...comic,
+						description: comic.description ? comic.description.replace(/<br>/gi, "\n") : comic.description
+					}
 				}
+
 		}
-		
+
 		componentDidMount() {
 			console.log("details", this.state.comic)
 			this.props.onLoad(this.state.comic)
 		}
-		
+
 		componentWillUnmount() {
 
 		}
-		
-		render() {
+
+	render() {
 				return (
 					<View>
 						<Image
@@ -42,6 +49,9 @@ class ComicsDetails extends Component {
 		}
 }
 
+ComicsDetails.propTypes = {
+	onLoad: PropTypes.func
+}
 
 const mapStateToProps = (state) => ({
 	characters: state.characters,
@@ -71,7 +81,7 @@ const mapDispatchToProps = (dispatch, props) =>({
 		for(let index in comic.creators.items){
 			//this.props.loadChars()
 			//dispatch(fetchCharacterById(UrI))
-		}	
+		}
 	}
 })
 
