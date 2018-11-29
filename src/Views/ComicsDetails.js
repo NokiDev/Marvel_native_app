@@ -16,11 +16,11 @@ class ComicsDetails extends Component {
 				navigation: PropTypes.object,
 				characters: PropTypes.array
 		}
-		
+
 		constructor(props) {
 				super(props)
-				
-				const comic = this.props.navigation.getParam("details")
+
+			const comic = this.props.navigation.getParam("details")
 				this.state = {
 						comic: {
 								...comic,
@@ -28,12 +28,12 @@ class ComicsDetails extends Component {
 						}
 				}
 		}
-		
-		componentDidMount() {
+
+	componentDidMount() {
 				this.props.onLoad(this.state.comic)
 		}
-		
-		render() {
+
+	render() {
 				let {comic} = this.state
 				let {characters} = this.props
 				return (
@@ -46,22 +46,40 @@ class ComicsDetails extends Component {
 		}
 }
 
-const processCharacters = (characters) => {
-		let charactersProcessed = []
-		for (let i = 0; i < characters.array.length; i++){
-				charactersProcessed.push(characters[characters.array[i]])
-		}
-		return charactersProcessed
+const processCharacters = (characters, props) => {
+	const comic = props.navigation.getParam("details")
+
+	console.log(comic)
+	return comic.characters.items.map(item => characters[getIdFromURI(item.resourceURI)])
 }
 
-const mapStateToProps = (state) => {
-		return ({
-		characters: processCharacters(state.marvel.characters),
-		series: state.marvel.series,
-		eventS: state.marvel.events,
-		stories: state.marvel.stories,
-		creator: state.marvel.creators
-})}
+const processSeries = (series, props) => {
+	const comic = props.navigation.getParam("details")
+	return series[comic.series.resourceURI]
+}
+
+const processStories = (stories, props) => {
+	const comic = props.navigation.getParam("details")
+	return comic.stories.items.map(item => stories[getIdFromURI(item.resourceURI)])
+}
+
+const processEvents = (events, props) => {
+	const comic = props.navigation.getParam("details")
+	return comic.events.items.map(item => events[getIdFromURI(item.resourceURI)])
+}
+
+const processCreators = (creators, props) => {
+	const comic = props.navigation.getParam("details")
+	return comic.creators.items.map(item => creators[getIdFromURI(item.resourceURI)])
+}
+
+const mapStateToProps = (state, props) => ({
+	characters: processCharacters(state.marvel.characters, props),
+	series: processSeries(state.marvel.series, props),
+	events: processEvents(state.marvel.events, props),
+	stories: processStories(state.marvel.stories, props),
+	creator: processCreators(state.marvel.creators, props)
+})
 
 const mapDispatchToProps = (dispatch, props) => ({
 	onLoad: (comic) => {
@@ -69,18 +87,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 			dispatch(fetchCharacterById(getIdFromURI(comic.characters.items[index].resourceURI)))
 		}
 		for (let index in comic.stories.items) {
-			//this.props.loadChars()
 			dispatch(fetchStoryById(getIdFromURI(comic.stories.items[index].resourceURI)))
-			//dispatch(fetchCharacterById(UrI))
 		}
 		for (let index in comic.events.items) {
-			//this.props.loadChars()
 			dispatch(fetchEventById(getIdFromURI(comic.events.items[index].resourceURI)))
-			//dispatch(fetchCharacterById(UrI))
 		}
 		for (let index in comic.creators.items) {
 			dispatch(fetchCreatorById(getIdFromURI(comic.creators.items[index].resourceURI)))
-			//dispatch(fetchCharacterById(UrI))
 		}
 		if (comic.series) {
 			dispatch(fetchSeriesById(getIdFromURI(comic.series.resourceURI)))
