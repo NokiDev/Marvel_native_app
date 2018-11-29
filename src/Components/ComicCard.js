@@ -5,77 +5,76 @@ import PropTypes from "prop-types"
 import Resume from "./Resume"
 
 export default class ComicCard extends Component {
-
-	static propTypes = {
-		thumbnailUri: PropTypes.string,
-		issueNumber: PropTypes.number,
-		title: PropTypes.string,
-		text: PropTypes.string,
-		characters: PropTypes.array,
-		events: PropTypes.array,
-		series: PropTypes.array,
-		stories: PropTypes.array,
-		creators: PropTypes.array,
-	}
-
-	render() {
-		let {thumbnailUri, title, issueNumber, text, characters, stories, series, creators, events} = this.props
-		let accordion = [
-			{title: "Characters", content: characters},
-			{title: "Creators", content: creators},
-			{title: "Series", content: series},
-			{title: "Stories", content: stories},
-			{title: "Events", content: events},
-		]
-		return (
-			<Card style={styles.card}>
-				<CardItem>
-					<Left>
-						<Thumbnail source={{uri: thumbnailUri}}/>
-						<Body>
-						<Text>{title}</Text>
-						<Text note>Volume: {issueNumber}</Text>
-						</Body>
-					</Left>
-				</CardItem>
-				<CardItem cardBody>
-					<Resume text={text} maxTextLength={200} stripChars={"..."}/>
-				</CardItem>
-				<Accordion dataArray={accordion} renderContent={this.renderCatContent}/>
-			</Card>
-		)
-	}
-
-	renderItemHeader(obj, expandable) {
-		console.log("item obj", obj)
-		return <Text>TEST</Text>
-	}
-
-	renderCatContent(obj, expandable) {
-		console.log(obj)
-		const data = obj.content.map(item => ({title: item.name, content: [item]}))
-		return <Accordion dataArray={data} renderHeader={this.renderItemHeader} renderContent={this.renderItemContent}/>
-	}
-
-	renderItemContent(obj, expandable) {
-		console.log("item obj", obj)
-		const item = obj.content[0]
-		console.log(item)
-		return <Text>Content</Text>
-	}
+		
+		static propTypes = {
+				thumbnailUri: PropTypes.string,
+				issueNumber: PropTypes.number,
+				title: PropTypes.string,
+				text: PropTypes.string,
+				characters: PropTypes.array,
+				events: PropTypes.array,
+				series: PropTypes.array,
+				stories: PropTypes.array,
+				creators: PropTypes.array,
+		}
+		
+		renderItemHeader = (obj, expandable) => {
+				const item = obj.content[0]
+				return <Text>{item.name}</Text>
+		}
+		
+		renderCatContent = (obj, expandable) => {
+				const data = obj.content.map(item => ({title: item.name, content: [item]}))
+				return <Accordion dataArray={data} renderHeader={this.renderItemHeader} renderContent={this.renderItemContent}/>
+		}
+		
+		renderItemContent = (obj, expandable) => {
+				const item = obj.content[0]
+				return (
+					<Text>{item.description}</Text>
+				)
+		}
+		
+		render() {
+				let {thumbnailUri, title, issueNumber, text, characters, stories, series, creators, events} = this.props
+				let accordion = [
+						{title: "Characters", content: characters},
+						{title: "Creators", content: creators},
+						{title: "Series", content: series},
+						{title: "Stories", content: stories},
+						{title: "Events", content: events},
+				]
+				return (
+					<Card style={styles.card}>
+							<CardItem>
+									<Left>
+											<Thumbnail source={{uri: thumbnailUri}}/>
+											<Body>
+											<Text>{title}</Text>
+											<Text note>Volume: {issueNumber}</Text>
+											</Body>
+									</Left>
+							</CardItem>
+							<CardItem cardBody>
+									<Resume text={text} maxTextLength={200} stripChars={"..."}/>
+							</CardItem>
+							<Accordion padding dataArray={accordion} renderContent={this.renderCatContent}/>
+					</Card>
+				)
+		}
 }
 
 
 const styles = StyleSheet.create({
-	card: {
-		marginLeft: 10,
-		marginRight: 10
-	},
-	titles: {
-		width: "100%",
-		textAlign: "center",
-		padding: 10,
-		fontWeight: "bold",
-		color: "#7F0000"
-	}
+		card: {
+				marginLeft: 10,
+				marginRight: 10
+		},
+		titles: {
+				width: "100%",
+				textAlign: "center",
+				padding: 10,
+				fontWeight: "bold",
+				color: "#7F0000"
+		}
 })
