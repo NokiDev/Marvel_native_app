@@ -30,5 +30,5 @@ export const fetchComicsEpic = (action$, state$) => action$.pipe(
 )
 
 export default [
-    fetchComicsEpic
+	fetchComicsEpic
 ]

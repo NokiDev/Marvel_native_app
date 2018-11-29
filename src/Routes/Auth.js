@@ -1,4 +1,4 @@
-import { createStackNavigator } from "react-navigation"
+import {createStackNavigator} from "react-navigation"
 import Login from "~/Views/Auth/Login"
 
 export default createStackNavigator(

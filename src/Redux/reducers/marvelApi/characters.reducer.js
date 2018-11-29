@@ -1,10 +1,10 @@
 import {characterActions} from "~/Redux/actions/marvelApi/characters.actions"
 
 const initialState = {
-    array: [], // Fiil with ids,
-    isLoading: false,
-    offset: 0,
-    // Adds up comics object by ids
+	array: [], // Fiil with ids,
+	isLoading: false,
+	offset: 0,
+	// Adds up comics object by ids
 }
 
 const charactersReducers = (state = initialState, action = {}) => {

@@ -5,5 +5,5 @@ import marvel from "./marvelApi"
 
 
 export const rootReducer = combineReducers({
-		marvel
+	marvel
 })
