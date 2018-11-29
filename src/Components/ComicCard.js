@@ -20,6 +20,13 @@ export default class ComicCard extends Component {
 
 	render() {
 		let {thumbnailUri, title, issueNumber, text, characters, stories, series, creators, events} = this.props
+		let accordion = [
+			{title: "Characters", content: characters},
+			{title: "Creators", content: creators},
+			{title: "Series", content: series},
+			{title: "Stories", content: stories},
+			{title: "Events", content: events},
+		]
 		return (
 			<Card style={styles.card}>
 				<CardItem>
@@ -34,28 +41,30 @@ export default class ComicCard extends Component {
 				<CardItem cardBody>
 					<Resume text={text} maxTextLength={200} stripChars={"..."}/>
 				</CardItem>
-				<CardItem cardBody>
-					<Text style={styles.titles}>Characters</Text>
-					<Accordion dataArray={characters} expanded={0}/>
-				</CardItem>
-				<CardItem cardBody>
-					<Text style={styles.titles}>Series</Text>
-					<Accordion dataArray={series} expanded={0}/>
-				</CardItem>
-				<CardItem cardBody>
-					<Text style={styles.titles}>Events</Text>
-					<Accordion dataArray={events} expanded={0}/>
-				</CardItem>
-				<CardItem cardBody>
-					<Text style={styles.titles}>Stories</Text>
-				</CardItem>
-				<CardItem cardBody>
-					<Text style={styles.titles}>Creators</Text>
-				</CardItem>
+				<Accordion dataArray={accordion} renderContent={this.renderCatContent}/>
 			</Card>
 		)
 	}
+
+	renderItemHeader(obj, expandable) {
+		console.log("item obj", obj)
+		return <Text>TEST</Text>
+	}
+
+	renderCatContent(obj, expandable) {
+		console.log(obj)
+		const data = obj.content.map(item => ({title: item.name, content: [item]}))
+		return <Accordion dataArray={data} renderHeader={this.renderItemHeader} renderContent={this.renderItemContent}/>
+	}
+
+	renderItemContent(obj, expandable) {
+		console.log("item obj", obj)
+		const item = obj.content[0]
+		console.log(item)
+		return <Text>Content</Text>
+	}
 }
+
 
 const styles = StyleSheet.create({
 	card: {
