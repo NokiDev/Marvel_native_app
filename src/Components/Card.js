@@ -32,6 +32,8 @@ export default class MarvelCard extends Component {
 const styles = StyleSheet.create({
 		card: {
 				height: 450,
-				margin: 10
+				margin: 10,
+				borderWidth: 2,
+				borderColor: "white"
 		}
 })

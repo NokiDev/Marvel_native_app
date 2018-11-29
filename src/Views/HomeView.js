@@ -1,13 +1,16 @@
 import React, {Component} from "react"
-import {FlatList, StyleSheet} from "react-native"
-import MarvelCard from "../Components/Card"
+import {FlatList, Image, StyleSheet} from "react-native"
+import {Container, Drawer, Spinner} from "native-base"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
+import assets from "~/assets/assets"
+
 import {disconnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 import {fetchComics} from "~/Redux/actions/marvelApi/comics.actions"
 
-import {Container, Drawer, Toast} from "native-base"
+import MarvelCard from "../Components/Card"
 import MarvelSideBar from "~/Components/SideBar"
+import CustomToast from "~/Components/CustomToast"
 
 class HomeView extends Component {
 		static propTypes = {
@@ -44,7 +47,7 @@ class HomeView extends Component {
 						this.drawer._root.close()
 				}
 		};
-		openDrawer = () => {
+		openDrawer = async () => {
 				this.drawer._root.open()
 		};
 		
@@ -53,32 +56,27 @@ class HomeView extends Component {
 		}
 		
 		onViewableItemsChanged = ({viewableItems, changed}) => {
-				if (viewableItems.length !== 0)
-						Toast.show({
-								text: this.props.comics[viewableItems[0].item].title,
-								duration: 0,
-								position: "top"
-						})
+				if (viewableItems.length !== 0) {
+						this.setState({comicTitle: this.props.comics[viewableItems[0].item].title})
+				}
 		}
 		
 		renderListFooter = () => {
-				if (this.props.comics.isLoading === true) {
+				if (this.props.comics.isLoading) {
 						return (<Spinner color={"white"}/>)
 				} else {
 						return null
 				}
-				
 		}
 		
 		render() {
-				let comics = this.props.comics
 				return (
 					<Drawer
 						ref={(ref) => {
 								this.drawer = ref
 						}}
 						type='displace'
-						content={<MarvelSideBar styles={homeView.sidebar} navigation={this.props.navigation}/>}
+						content={<MarvelSideBar navigation={this.props.navigation}/>}
 						onClose={() => this.closeDrawer()}
 						onOpen={() => this.openDrawer()}
 						side="left"
@@ -89,6 +87,29 @@ class HomeView extends Component {
 						acceptPan={true}
 					>
 							<Container style={homeView.view} id="home">
+									<Image style={homeView.background} width={"100%"} height={"100%"} source={assets.images.MarvelBackground}/>
+									<CustomToast show={this.props.comics.array.length > 0} text={this.state.comicTitle}
+															 backgroundColor={"black"} textColor={"white"}/>
+									{/*{
+											this.props.comics.array.length > 0 ? (<FlatList
+												ListFooterComponent={this.renderListFooter}
+												onEndReachedThreshold={2}
+												onEndReached={this.props.onFetchComics}
+												viewabilityConfig={this.viewabilityConfig}
+												onViewableItemsChanged={this.onViewableItemsChanged}
+												style={homeView.flatList}
+												data={this.props.comics.array}
+												keyExtractor={id => `${id}`}
+												renderItem={(item) => {
+														return <MarvelCard details={this.props.comics[item.item]} onPress={this.goToDetails}
+																							 uri={"/hello"}/>
+												}}
+											/>) : (
+												<View style={homeView.flatListPlaceholder}>
+														<ComicPlaceholder height={450} width={"90%"}/>
+												</View>
+											)
+									}*/}
 									<FlatList
 										ListFooterComponent={this.renderListFooter}
 										onEndReachedThreshold={2}
@@ -111,12 +132,28 @@ class HomeView extends Component {
 
 const homeView = StyleSheet.create({
 		view: {
-				backgroundColor: "#800000",
+				height: "100%",
+				backgroundColor: "transparent"
+		},
+		background: {
+				position: "absolute",
+				top: 0,
+				bottom: 0,
+				left: 0,
+				right: 0,
+				width: "100%",
 				height: "100%"
 		},
 		flatList: {
 				paddingLeft: 20,
 				paddingRight: 20
+		},
+		flatListPlaceholder: {
+				width: "100%",
+				height: "100%",
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center"
 		}
 })
 
