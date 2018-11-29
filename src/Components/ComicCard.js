@@ -13,7 +13,6 @@ export default class ComicCard extends Component {
 				text: PropTypes.string,
 				characters: PropTypes.array,
 				events: PropTypes.array,
-				series: PropTypes.array,
 				stories: PropTypes.array,
 				creators: PropTypes.array,
 		}
@@ -22,22 +21,24 @@ export default class ComicCard extends Component {
 				const item = obj.content[0]
 				return (
 					<View style={styles.titleItems}>
-							<Thumbnail small source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}`}}/>
-							<Text style={{paddingLeft: 5}}>{item.name}</Text>
+							{item.thumbnail ? (<Thumbnail small source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}`}}/>) : null}
+							<Text style={{paddingLeft: 5}}>{item.name || item.fullName || item.title}</Text>
 					</View>
 				)
 		}
 		
 		renderCatContent = (obj, expandable) => {
-				const data = obj.content.map(item => ({title: item.name, content: [item]}))
+				const data = obj.content.map(item => ({title: item.name || item.fullName, content: [item]}))
 				return <Accordion dataArray={data} renderHeader={this.renderItemHeader} renderContent={this.renderItemContent}/>
 		}
 		
 		renderItemContent = (obj, expandable) => {
 				const item = obj.content[0]
-				return (
-					<Text style={{padding: 10}}>{item.description}</Text>
-				)
+				if(item.description){
+						return (
+							<Text style={{padding: 10}}>{item.description}</Text>
+						)
+				}
 		}
 		
 		render() {
@@ -45,15 +46,15 @@ export default class ComicCard extends Component {
 				let accordion = [
 						{title: "Characters", content: characters},
 						{title: "Creators", content: creators},
-						{title: "Series", content: series},
 						{title: "Stories", content: stories},
 						{title: "Events", content: events},
 				]
+				console.log("events", events)
 				return (
 					<Card style={styles.card}>
 							<CardItem>
 									<Left>
-											<Thumbnail source={{uri: thumbnailUri}}/>
+											<Thumbnail square source={{uri: thumbnailUri || ""}}/>
 											<Body>
 											<Text>{title}</Text>
 											<Text note>Volume: {issueNumber}</Text>
