@@ -9,6 +9,8 @@ import filter from "redux-storage-decorator-filter"
 import {rootReducer} from "./reducers"
 import {rootEpic} from "./epics"
 
+import {authActions} from "./actions/marvelApi/auth.actions"
+
 export const configureStore = (preloadedState) => {
 	// Create engine with top level stored key.
 	const engine = filter(createEngine("MarvelApp"), [
@@ -18,7 +20,7 @@ export const configureStore = (preloadedState) => {
 	const middlewares = []
 	const epicMiddleware = createEpicMiddleware()
 	const logger = createLogger({})
-	const storageMiddleware = storage.createMiddleware(engine)
+	const storageMiddleware = storage.createMiddleware(engine, [], [authActions.CONNECT_API_DONE, authActions.DISCONNECT_API_DONE])
 
 	middlewares.push(epicMiddleware)
 	middlewares.push(storageMiddleware)
