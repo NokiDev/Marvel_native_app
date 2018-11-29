@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Accordion, Body, Card, CardItem, Left, Text, Thumbnail} from "native-base"
+import {Accordion, Body, Card, CardItem, Left, Text, Thumbnail, View} from "native-base"
 import {StyleSheet} from "react-native"
 import PropTypes from "prop-types"
 import Resume from "./Resume"
@@ -20,7 +20,12 @@ export default class ComicCard extends Component {
 		
 		renderItemHeader = (obj, expandable) => {
 				const item = obj.content[0]
-				return <Text>{item.name}</Text>
+				return (
+					<View style={styles.titleItems}>
+							<Thumbnail small source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}`}}/>
+							<Text style={{paddingLeft: 5}}>{item.name}</Text>
+					</View>
+				)
 		}
 		
 		renderCatContent = (obj, expandable) => {
@@ -31,7 +36,7 @@ export default class ComicCard extends Component {
 		renderItemContent = (obj, expandable) => {
 				const item = obj.content[0]
 				return (
-					<Text>{item.description}</Text>
+					<Text style={{padding: 10}}>{item.description}</Text>
 				)
 		}
 		
@@ -76,5 +81,12 @@ const styles = StyleSheet.create({
 				padding: 10,
 				fontWeight: "bold",
 				color: "#7F0000"
+		},
+		titleItems: {
+				display: "flex",
+				flexDirection: "row",
+				justifyContent: "flex-start",
+				alignItems: "center",
+				padding: 5
 		}
 })
