@@ -49,7 +49,6 @@ export default class ComicCard extends Component {
 						{title: "Stories", content: stories},
 						{title: "Events", content: events},
 				]
-				console.log("events", events)
 				return (
 					<Card style={styles.card}>
 							<CardItem>
