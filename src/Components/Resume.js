@@ -1,7 +1,7 @@
-import React, {Component} from "react"
-import PropTypes from "prop-types"
-import {Text, View} from "react-native"
 import {Body, Button, CardItem} from "native-base"
+import PropTypes from "prop-types"
+import React, {Component} from "react"
+import {Text, View} from "react-native"
 
 
 class Resume extends Component {
@@ -11,11 +11,11 @@ class Resume extends Component {
 	}
 
 	splitText() {
-		return this.props.text.split("", this.props.maxTextLength).concat(this.props.stripChars)
+		return this.props.text.split ("", this.props.maxTextLength).concat (this.props.stripChars)
 	}
 
 	displayMore() {
-		this.setState({
+		this.setState ({
 			moreHidden: !this.state.moreHidden
 		})
 	}
@@ -26,13 +26,15 @@ class Resume extends Component {
 			item = (
 				<View>
 					<Text
-						style={{alignSelf: "center"}}> {this.state.moreHidden ? this.props.text : this.splitText()} </Text>
-					<Button block transparent light onPress={() => {
-						this.displayMore()
-					}}><Text>{this.state.moreHidden ? "Show Less" : "Show More"}</Text></Button>
+						style={{alignSelf : "center"}}> {this.state.moreHidden ? this.props.text : this.splitText ()} </Text>
+					<Button block light onPress={() => {
+						this.displayMore ()
+					}}
+							transparent><Text>{this.state.moreHidden ? "Show Less" : "Show More"}</Text></Button>
 				</View>
 			)
-		} else {
+		}
+		else {
 			item = (
 				<View>
 					<Text style={{alignSelf: "center"}}> No Description </Text>
@@ -49,7 +51,7 @@ class Resume extends Component {
 		return (
 			<CardItem>
 				<Body>
-				{this.renderItem()}
+				{this.renderItem ()}
 				</Body>
 			</CardItem>
 		)
@@ -57,9 +59,9 @@ class Resume extends Component {
 }
 
 Resume.propTypes = {
-	text: PropTypes.string,
-	maxTextLength: PropTypes.number,
-	stripChars: PropTypes.string
+	text          : PropTypes.string,
+	maxTextLength : PropTypes.number,
+	stripChars    : PropTypes.string
 }
 
 export default Resume

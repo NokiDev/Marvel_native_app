@@ -37,7 +37,7 @@
     // a function will be skipped.
   },
   "rules": {
-    "no-trailing-spaces": 2,
+    "no-trailing-spaces": "warn",
     "prefer-template": "error",
     "prefer-numeric-literals": "error",
     "no-var": "error",
@@ -86,7 +86,7 @@
     ],
     "prefer-object-spread": "error",
     "space-in-parens": [
-      "error",
+      "warn",
       "never",
       {
         "exceptions": [

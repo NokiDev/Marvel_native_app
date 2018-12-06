@@ -5,23 +5,23 @@ import AuthStack from "./Auth"
 
 const RouteConfigs = {
 	AuthLoading: {
-		screen: AuthLoading,
+		screen : AuthLoading
 	},
 	App: {
 		screen: AppStack
 	},
 	Auth: {
 		screen: AuthStack
-	},
-}
-
-const SwitchNavigatorConfig = {
-	initialRouteName: "AuthLoading",
-	backBehaviour: "none",
-	headerMode: "none",
-	navigationOptions: {
-		headerVisible: false,
 	}
 }
 
-export default createSwitchNavigator(RouteConfigs, SwitchNavigatorConfig)
+const SwitchNavigatorConfig = {
+	initialRouteName  : "AuthLoading",
+	backBehaviour     : "none",
+	headerMode        : "none",
+	navigationOptions : {
+		headerVisible : false
+	}
+}
+
+export default createSwitchNavigator (RouteConfigs, SwitchNavigatorConfig)

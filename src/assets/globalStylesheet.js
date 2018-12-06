@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native"
 
-const globalStyle = StyleSheet.create({
+const globalStyle = StyleSheet.create ({
 	header: {
 		height: 40
 	}

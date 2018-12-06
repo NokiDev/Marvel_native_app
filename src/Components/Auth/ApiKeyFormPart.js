@@ -1,6 +1,6 @@
-import React from "react"
-import PropTypes from "prop-types"
 import {Button, Input, Item, View} from "native-base"
+import PropTypes from "prop-types"
+import React from "react"
 import {Text} from "react-native"
 import Spacer from "~/Components/Spacer"
 
@@ -10,10 +10,10 @@ export default class ApiKeyFormPart extends React.Component {
 	}
 
 	constructor(props) {
-		super(props)
+		super (props)
 		this.state = {
-			private_api_key: "",
-			public_api_key: ""
+			private_api_key : "",
+			public_api_key  : ""
 		}
 	}
 
@@ -23,7 +23,7 @@ export default class ApiKeyFormPart extends React.Component {
 				<Spacer height={20}/>
 				<Item style={{backgroundColor: "white"}} regular>
 					<Input onChangeText={(text) => {
-						this.setState({
+						this.setState ({
 							private_api_key: text
 						})
 					}} placeholder={"Enter Private Api Key"}/>
@@ -31,7 +31,7 @@ export default class ApiKeyFormPart extends React.Component {
 				<Spacer height={10}/>
 				<Item style={{backgroundColor: "white"}} regular>
 					<Input onChangeText={(text) => {
-						this.setState({
+						this.setState ({
 							public_api_key: text
 						})
 					}} placeholder={"Enter Public Api Key"}/>
@@ -39,7 +39,7 @@ export default class ApiKeyFormPart extends React.Component {
 				<Spacer height={10}/>
 				<Button success disabled={this.state.public_api_key === "" || this.state.private_api_key === ""} block
 						onPress={() => {
-							this.props.onSubmit(this.state.private_api_key, this.state.public_api_key)
+							this.props.onSubmit (this.state.private_api_key, this.state.public_api_key)
 						}}>
 					<Text style={{color: "white"}}>
 						Confirm

@@ -1,11 +1,11 @@
-import {createStackNavigator} from "react-navigation"
 import React from "react"
+import {createStackNavigator} from "react-navigation"
+import CustomMarvelHeader from "~/Components/CustomMarvelHeader"
+import ComicsDetails from "~/Views/ComicsDetails"
 
 import HomeView from "~/Views/HomeView"
-import ComicsDetails from "~/Views/ComicsDetails"
-import CustomMarvelHeader from "~/Components/CustomMarvelHeader"
 
-const RootStack = createStackNavigator({
+const RootStack = createStackNavigator ({
 		Home: {
 			screen: HomeView
 		},
@@ -14,30 +14,30 @@ const RootStack = createStackNavigator({
 		}
 	},
 	{
-		initialRouteName: "Home",
-		navigationOptions: {
-			headerBackground: <CustomMarvelHeader homePage="http://marvel.com"/>,
-			headerStyle: {
-				backgroundColor: "transparent",
-				borderBottomWidth: 0
+		initialRouteName  : "Home",
+		navigationOptions : {
+			headerBackground : <CustomMarvelHeader homePage="http://marvel.com"/>,
+			headerStyle      : {
+				backgroundColor   : "transparent",
+				borderBottomWidth : 0
 			},
 			headerTransparent: false
 		}
 	}
 )
 
-export default createStackNavigator(
+export default createStackNavigator (
 	{
-		Home: RootStack,
-		navigationOptions: () => ({
-			title: "Home",
+		Home              : RootStack,
+		navigationOptions : () => ({
+			title : "Home"
 		})
 	},
 	{
-		initialRouteName: "Home",
-		headerMode: "none",
-		navigationOptions: {
-			headerVisible: false,
+		initialRouteName  : "Home",
+		headerMode        : "none",
+		navigationOptions : {
+			headerVisible : false
 		}
 	}
 )

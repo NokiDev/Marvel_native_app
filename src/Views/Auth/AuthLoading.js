@@ -1,8 +1,8 @@
+import {Container} from "native-base"
+import PropTypes from "prop-types"
 import React from "react"
 import {ActivityIndicator, StatusBar} from "react-native"
-import PropTypes from "prop-types"
 import {connect} from "react-redux"
-import {Container} from "native-base"
 // TODO make a global reinit state.
 import {resumeConnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 
@@ -10,16 +10,16 @@ import {resumeConnectApi} from "~/Redux/actions/marvelApi/auth.actions"
 class AuthLoading extends React.Component {
 
 	static propTypes = {
-		navigation: PropTypes.object,
-		onLoad: PropTypes.func
+		navigation : PropTypes.object,
+		onLoad     : PropTypes.func
 	}
 
 	constructor(props) {
-		super(props)
+		super (props)
 	}
 
 	componentDidMount() {
-		this.props.onLoad()
+		this.props.onLoad ()
 	}
 
 	// Render any loading content that you like here
@@ -34,17 +34,17 @@ class AuthLoading extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	onLoad: () => {
-		dispatch(resumeConnectApi(props.navigation))
+	onLoad : () => {
+		dispatch (resumeConnectApi (props.navigation))
 	}
 })
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
 	return {}
 }
 
 
-export default connect(
+export default connect (
 	mapStateToProps,
 	mapDispatchToProps
-)(AuthLoading)
+) (AuthLoading)

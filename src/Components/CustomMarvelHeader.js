@@ -1,13 +1,13 @@
+import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Image, Linking, StyleSheet, TouchableOpacity, View} from "react-native"
 import assets from "~/assets/assets"
-import PropTypes from "prop-types"
 
 export default class CustomMarvelHeader extends Component {
 
 	openHomePage() {
-		if (Linking.canOpenURL(this.props.homePage)) {
-			Linking.openURL(this.props.homePage)
+		if (Linking.canOpenURL (this.props.homePage)) {
+			Linking.openURL (this.props.homePage)
 		}
 	}
 
@@ -15,12 +15,11 @@ export default class CustomMarvelHeader extends Component {
 		return (
 			<View style={styles.header}>
 				<TouchableOpacity onPress={() => {
-					this.openHomePage()
+					this.openHomePage ()
 				}}>
-					<Image
-						source={assets.images.MarvelLogo}
-						style={{width: "100%", height: "100%"}}
-						resizeMode={"contain"}
+					<Image resizeMode={"contain"}
+						   source={assets.images.MarvelLogo}
+						   style={{width : "100%", height : "100%"}}
 					/>
 				</TouchableOpacity>
 			</View>
@@ -29,13 +28,13 @@ export default class CustomMarvelHeader extends Component {
 }
 
 CustomMarvelHeader.propTypes = {
-	homePage: PropTypes.string
+	homePage : PropTypes.string
 }
 
-const styles = StyleSheet.create({
-	header: {
-		backgroundColor: "#560505",
-		paddingTop: 10,
-		paddingBottom: 10
+const styles = StyleSheet.create ({
+	header : {
+		backgroundColor : "#560505",
+		paddingTop      : 10,
+		paddingBottom   : 10
 	}
 })

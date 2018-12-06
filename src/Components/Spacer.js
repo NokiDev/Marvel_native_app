@@ -1,11 +1,11 @@
-import React from "react"
 import PropTypes from "prop-types"
+import React from "react"
 import {View} from "react-native"
 
 export default class Spacer extends React.Component {
 	static propTypes = {
-		width: PropTypes.number,
-		height: PropTypes.number
+		width  : PropTypes.number,
+		height : PropTypes.number
 	}
 
 	render() {
